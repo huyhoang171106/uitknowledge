@@ -32,9 +32,9 @@
     --pastel-orange: #fc4c02;
     --pastel-lavender: #bdbbff;
     --shadow-light: rgba(1, 1, 32, 0.1);
-    --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', sans-serif;
+    --font-display: 'Be Vietnam Pro', sans-serif;
     --font-body: 'Be Vietnam Pro', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
+    --font-mono: 'Be Vietnam Pro', monospace;
     --radius-xs: 6px;
     --radius-sm: 8px;
     --radius-lg: 12px;
@@ -165,7 +165,8 @@ select {
     min-width: 0;
 }
 
-.logo-icon {
+.logo-icon,
+.logo-image {
     width: 42px;
     height: 42px;
     border-radius: 10px;
@@ -176,6 +177,7 @@ select {
     color: var(--light-text);
     font-weight: 700;
     font-size: 18px;
+    object-fit: cover;
 }
 
 .logo-lockup {
@@ -326,8 +328,8 @@ select {
 /* === HERO === */
 .hero {
     position: relative;
-    min-height: 100vh;
-    padding: 148px 0 96px;
+    min-height: auto;
+    padding: 140px 0 20px;
     background: linear-gradient(180deg, #fff 0%, #fdfcff 55%, #ffffff 100%);
     overflow: hidden;
 }
@@ -382,9 +384,9 @@ select {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
-    gap: 48px;
-    align-items: end;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
 }
 
 .hero-copy {
@@ -392,7 +394,7 @@ select {
 }
 
 .hero-title {
-    max-width: 12ch;
+    max-width: 16ch;
     font-family: var(--font-display);
     font-size: clamp(42px, 6.4vw, 72px);
     line-height: 1.04;
@@ -415,15 +417,15 @@ select {
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 36px;
+    gap: 12px;
+    margin-top: 32px;
 }
 
 .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 44px;
+    gap: 12px;
+    margin-top: 30px;
 }
 
 .stat-card {
@@ -453,7 +455,9 @@ select {
 .hero-panel {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
+    align-self: start;
+    margin-top: 0;
 }
 
 .hero-panel-card,
@@ -466,49 +470,53 @@ select {
 }
 
 .hero-panel-intro {
-    padding: 28px;
+    padding: 20px;
 }
 
 .hero-panel-intro h2 {
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.05;
     letter-spacing: -0.04em;
+    font-weight: 800;
 }
 
 .hero-panel-intro p {
     margin-top: 14px;
     color: var(--light-text-secondary);
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .hero-panel-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 12px;
 }
 
 .hero-mini-card {
     padding: 20px;
-    min-height: 132px;
+    min-height: 118px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 8px;
 }
 
 .mini-kicker {
     font-family: var(--font-mono);
     font-size: 11px;
+    font-weight: 800;
     line-height: 1.2;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--light-text-muted);
+    color: rgba(0, 0, 0, 0.72);
 }
 
 .hero-mini-card strong {
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1.2;
     letter-spacing: -0.04em;
+    font-weight: 800;
 }
 
 .accent-card {
@@ -518,13 +526,13 @@ select {
 
 /* === LIGHT INTRO / COURSE / FOOTER === */
 .intro-band {
-    padding-top: 40px;
+    padding-top: 0;
 }
 
 .intro-layout {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 48px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
     align-items: start;
 }
 
@@ -618,6 +626,8 @@ select {
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
 }
 
 .video-card:hover,
@@ -699,6 +709,9 @@ select {
 .video-info,
 .merch-info {
     padding: 26px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 
 .video-title,
@@ -719,6 +732,10 @@ select {
     color: var(--dark-text-secondary);
     font-size: 15px;
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .video-meta {
@@ -740,14 +757,17 @@ select {
         #ffffff;
 }
 
-.courses-grid,
-.merch-grid {
+.courses-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
+    max-width: 1120px;
+    margin: 0 auto;
 }
 
 .course-card {
+    display: flex;
+    flex-direction: column;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--light-border);
     border-radius: var(--radius-lg);
@@ -853,6 +873,9 @@ select {
 }
 
 .course-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     padding: 22px;
 }
 
@@ -873,6 +896,10 @@ select {
     color: var(--light-text-secondary);
     font-size: 15px;
     line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .course-footer,
@@ -912,18 +939,56 @@ select {
     box-shadow: 0 8px 20px rgba(62, 207, 142, 0.3);
 }
 
+.course-footer {
+    margin-top: auto;
+}
+
 /* === MERCH === */
+.merch-carousel {
+    position: relative;
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    gap: 18px;
+    align-items: center;
+}
+
+.merch-viewport {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.merch-track {
+    display: flex;
+    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.merch-track.no-transition {
+    transition: none;
+}
+
 .merch-card {
     position: relative;
     z-index: 1;
+    flex: 0 0 100%;
+    min-height: 440px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.94fr) minmax(320px, 1.06fr);
+    background:
+        linear-gradient(90deg, rgba(15, 15, 15, 0.68), rgba(15, 15, 15, 0.88)),
+        url('assets/images/merch-card-bg-demo.png') center / cover no-repeat,
+        var(--dark-surface-soft);
 }
 
 .merch-image {
-    height: 220px;
+    min-height: 430px;
     display: grid;
     place-items: center;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
-    border-bottom: 1px solid var(--dark-border);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    border-right: 1px solid var(--dark-border);
+    border-bottom: 0;
     overflow: hidden;
     position: relative;
 }
@@ -951,8 +1016,8 @@ select {
 }
 
 .merch-placeholder {
-    width: 170px;
-    height: 170px;
+    width: min(300px, 70%);
+    aspect-ratio: 1 / 1;
     border-radius: var(--radius-sm);
     display: grid;
     place-items: center;
@@ -961,6 +1026,7 @@ select {
     text-align: center;
     padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 
 .merch-shirt {
@@ -981,6 +1047,14 @@ select {
 
 .merch-name {
     color: var(--dark-text);
+    font-size: clamp(28px, 4vw, 42px);
+    max-width: 12ch;
+}
+
+.merch-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .merch-variants {
@@ -1027,6 +1101,26 @@ select {
 
 .merch-footer {
     border-top-color: var(--dark-border);
+}
+
+.merch-arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--dark-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--dark-text);
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform var(--transition), border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.merch-arrow:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-border);
+    background: rgba(62, 207, 142, 0.1);
+    color: var(--accent);
 }
 
 .merch-footer .btn {
@@ -1154,6 +1248,8 @@ select {
 }
 
 /* === RESPONSIVE === */
+
+/* --- Tablet Landscape / Small Desktop (≤ 1120px) --- */
 @media (max-width: 1120px) {
 
     .hero-shell,
@@ -1163,17 +1259,48 @@ select {
         grid-template-columns: 1fr;
     }
 
-    .courses-grid,
-    .merch-grid {
+    .courses-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .merch-card {
+        grid-template-columns: 1fr;
+    }
+
+    .merch-image {
+        min-height: 280px;
+        border-right: 0;
+        border-bottom: 1px solid var(--dark-border);
+    }
+
     .hero-title {
-        max-width: 12ch;
+        max-width: none;
+    }
+
+    .hero-panel {
+        margin-top: 24px;
+    }
+
+    .hero-panel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-top {
+        gap: 40px;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
     }
 }
 
+/* --- Tablet Portrait (≤ 860px) --- */
 @media (max-width: 860px) {
+
     .hide-mobile {
         display: none;
     }
@@ -1194,7 +1321,9 @@ select {
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
     }
 
     .nav.open {
@@ -1203,31 +1332,99 @@ select {
 
     .nav-link {
         border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 16px;
     }
 
     .hero {
         min-height: auto;
-        padding-top: 132px;
+        padding-top: 120px;
+        padding-bottom: 40px;
     }
 
-    .hero-stats,
-    .hero-panel-grid,
-    .video-grid,
-    .courses-grid,
-    .merch-grid,
-    .footer-links-wrap {
+    .hero-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-panel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .video-grid {
         grid-template-columns: 1fr;
     }
 
+    .courses-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-links-wrap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .merch-carousel {
+        grid-template-columns: 1fr;
+    }
+
+    .merch-arrow {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        transform: translateY(-50%);
+        background: rgba(15, 15, 15, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .merch-arrow:hover {
+        transform: translateY(calc(-50% - 2px));
+    }
+
+    .merch-arrow-prev {
+        left: 12px;
+    }
+
+    .merch-arrow-next {
+        right: 12px;
+    }
+
     .section {
-        padding: 80px 0;
+        padding: 72px 0;
     }
 
     .footer-shell {
-        padding-top: 80px;
+        padding: 72px 0 48px;
+    }
+
+    .section-header {
+        margin-bottom: 36px;
+    }
+
+    .footer-top {
+        margin-bottom: 48px;
+    }
+
+    .merch-name {
+        font-size: clamp(24px, 5vw, 36px);
+    }
+
+    .faq-question {
+        min-height: 60px;
+        padding: 0 20px;
+        font-size: 16px;
+    }
+
+    .faq-answer p {
+        padding: 0 20px;
+        font-size: 14px;
+    }
+
+    .faq-item.is-open .faq-answer p {
+        padding-bottom: 20px;
     }
 }
 
+/* --- Large Phone (≤ 640px) --- */
 @media (max-width: 640px) {
 
     .container,
@@ -1235,31 +1432,471 @@ select {
         width: min(var(--container), calc(100% - 32px));
     }
 
+    .header {
+        padding: 16px 0;
+    }
+
+    .header.scrolled {
+        padding: 12px 0;
+    }
+
     .header-actions {
         gap: 8px;
     }
 
-    .hero-actions,
-    .course-footer,
-    .merch-footer,
-    .footer-bottom {
+    .btn-small {
+        min-height: 36px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    .hero {
+        padding-top: 100px;
+        padding-bottom: 32px;
+    }
+
+    .hero-actions {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .hero-title,
-    .section-title,
-    .footer-brand h2 {
+    .hero-actions .btn {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .hero-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-number {
+        font-size: clamp(22px, 6vw, 36px);
+    }
+
+    .stat-label {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .hero-panel-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .hero-mini-card {
+        padding: 14px;
+        min-height: 100px;
+    }
+
+    .hero-mini-card strong {
+        font-size: 16px;
+    }
+
+    .mini-kicker {
+        font-size: 10px;
+    }
+
+    .hero-panel-intro {
+        padding: 18px;
+    }
+
+    .hero-panel-intro h2 {
+        font-size: 24px;
+    }
+
+    .hero-panel-intro p {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .intro-layout {
+        gap: 24px;
+    }
+
+    .section-title {
+        font-size: clamp(28px, 6vw, 42px);
+    }
+
+    .section-desc {
+        font-size: 15px;
+    }
+
+    .section {
+        padding: 56px 0;
+    }
+
+    .video-info {
+        padding: 20px;
+    }
+
+    .video-title {
+        font-size: 18px;
+    }
+
+    .video-card:not(.featured) .video-title {
+        font-size: 18px;
+    }
+
+    .video-desc {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .video-play {
+        width: 52px;
+        height: 52px;
+    }
+
+    .small-play {
+        width: 44px;
+        height: 44px;
+    }
+
+    .course-image {
+        height: 140px;
+    }
+
+    .course-content {
+        padding: 18px;
+    }
+
+    .course-title {
+        font-size: 18px;
+    }
+
+    .course-desc {
+        font-size: 14px;
+    }
+
+    .course-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-top: 18px;
+        padding-top: 14px;
+    }
+
+    .course-price {
+        font-size: 18px;
+    }
+
+    .course-link {
+        text-align: center;
+        padding: 12px 16px;
+    }
+
+    .merch-card {
+        min-height: auto;
+    }
+
+    .merch-image {
+        min-height: 240px;
+    }
+
+    .merch-info {
+        padding: 20px;
+    }
+
+    .merch-name {
+        font-size: clamp(22px, 5vw, 32px);
         max-width: none;
     }
 
-    .stat-card,
-    .hero-panel-intro,
-    .hero-mini-card,
-    .video-info,
-    .course-content,
-    .merch-info {
-        padding: 18px;
+    .merch-desc {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .merch-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .merch-price {
+        font-size: 18px;
+    }
+
+    .merch-variants {
+        margin-top: 16px;
+    }
+
+    .merch-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+    }
+
+    .footer-shell {
+        padding: 56px 0 40px;
+    }
+
+    .footer-top {
+        gap: 32px;
+        margin-bottom: 32px;
+    }
+
+    .footer-brand h2 {
+        max-width: none;
+        font-size: clamp(28px, 6vw, 42px);
+    }
+
+    .footer-links-wrap {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+
+    /* QR Modal Mobile */
+    .qr-modal {
+        padding: 16px;
+    }
+
+    .qr-modal-container {
+        max-width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .qr-modal-header {
+        padding: 16px 20px;
+    }
+
+    .qr-modal-body {
+        padding: 20px;
+    }
+
+    .qr-image-wrapper {
+        width: 220px;
+        height: 220px;
+        margin-bottom: 20px;
+    }
+
+    .qr-instructions {
+        font-size: 13px;
+    }
+
+    .qr-modal-footer {
+        padding: 16px 20px;
+    }
+
+    .eyebrow {
+        font-size: 11px;
+        margin-bottom: 14px;
+    }
+
+    .section-tag {
+        font-size: 10px;
+        margin-bottom: 14px;
+    }
+
+    .section-header {
+        margin-bottom: 28px;
+    }
+
+    .section-cta {
+        margin-top: 28px;
+    }
+}
+
+/* --- Small Phone (≤ 400px) --- */
+@media (max-width: 400px) {
+
+    .container,
+    .header-container {
+        width: calc(100% - 24px);
+    }
+
+    .logo-text {
+        font-size: 15px;
+    }
+
+    .logo-meta {
+        font-size: 9px;
+    }
+
+    .logo-icon,
+    .logo-image {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hero {
+        padding-top: 90px;
+    }
+
+    .hero-title {
+        font-size: clamp(32px, 8vw, 48px);
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+    }
+
+    .stat-card {
+        padding: 10px;
+    }
+
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .hero-panel-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .hero-mini-card {
+        min-height: auto;
+        padding: 12px;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .course-image {
+        height: 120px;
+    }
+
+    .footer-links-wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .merch-image {
+        min-height: 200px;
+    }
+
+    .faq-question {
+        min-height: 52px;
+        padding: 0 16px;
+        font-size: 15px;
+        gap: 12px;
+    }
+
+    .faq-answer p {
+        padding: 0 16px;
+    }
+
+    .faq-item.is-open .faq-answer p {
+        padding-bottom: 16px;
+    }
+
+    .qr-image-wrapper {
+        width: 180px;
+        height: 180px;
+    }
+
+    .btn-large {
+        min-height: 44px;
+        padding: 0 18px;
+        font-size: 14px;
+    }
+}
+
+/* --- Safe Area for Notched Devices (iPhone X+) --- */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .footer-bottom {
+        padding-bottom: calc(28px + env(safe-area-inset-bottom));
+    }
+
+    .qr-modal {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav.open {
+        max-height: calc(100vh - env(safe-area-inset-top) - 100px);
+        overflow-y: auto;
+    }
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .video-card,
+    .merch-card,
+    .course-card,
+    .btn,
+    .merch-arrow,
+    .faq-item,
+    .faq-answer {
+        transition: none;
+    }
+
+    .badge-hot {
+        animation: none;
+    }
+
+    .merch-track {
+        transition: none;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* --- Hover-capable Devices Only --- */
+@media (hover: hover) and (pointer: fine) {
+    .video-card:hover,
+    .merch-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .course-card:hover {
+        transform: translateY(-6px) scale(1.01);
+    }
+}
+
+/* --- Touch Devices (no hover) --- */
+@media (hover: none) {
+    .video-card:hover,
+    .merch-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .course-card:hover {
+        transform: none;
+    }
+
+    .course-card:hover::before {
+        opacity: 0;
+    }
+
+    .merch-card:hover .merch-image::before {
+        opacity: 0;
+    }
+
+    .merch-card:hover .merch-image img {
+        transform: none;
+        filter: none;
     }
 }
 
@@ -1282,45 +1919,94 @@ select {
     border-top: 1px solid var(--light-border);
 }
 
-.faq-grid {
+.faq-accordion {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
-    max-width: 1000px;
+    gap: 12px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .faq-item {
-    padding: 24px;
     background: #ffffff;
     border: 1px solid var(--light-border);
     border-radius: var(--radius-lg);
-    transition: transform var(--transition), border-color var(--transition);
+    overflow: hidden;
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-.faq-item:hover {
+.faq-item:hover,
+.faq-item.is-open {
     border-color: var(--accent-strong);
-    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(1, 1, 32, 0.07);
 }
 
 .faq-question {
+    width: 100%;
+    min-height: 72px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
     font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-weight: 800;
     color: var(--light-text);
 }
 
 .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--transition);
+}
+
+.faq-answer p {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
     font-size: 15px;
     line-height: 1.6;
     color: var(--light-text-secondary);
 }
 
-@media (max-width: 860px) {
-    .faq-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
+.faq-item.is-open .faq-answer {
+    grid-template-rows: 1fr;
+}
+
+.faq-item.is-open .faq-answer p {
+    padding-bottom: 24px;
+}
+
+.faq-icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--light-border);
+}
+
+.faq-icon::before,
+.faq-icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 10px;
+    height: 2px;
+    background: var(--light-text);
+    transform: translate(-50%, -50%);
+}
+
+.faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: opacity var(--transition);
+}
+
+.faq-item.is-open .faq-icon::after {
+    opacity: 0;
 }
 
 /* === QR MODAL === */

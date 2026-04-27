@@ -128,9 +128,108 @@ document.querySelectorAll('.variant-options').forEach(group => {
     });
 });
 
+function initFAQAccordion() {
+    const accordion = document.getElementById('faq-accordion');
+    if (!accordion) return;
+
+    const items = Array.from(accordion.querySelectorAll('.faq-item'));
+    items.forEach((item, index) => {
+        const button = item.querySelector('.faq-question');
+        if (!button) return;
+
+        const isOpen = index === 0;
+        item.classList.toggle('is-open', isOpen);
+        button.setAttribute('aria-expanded', String(isOpen));
+
+        button.addEventListener('click', () => {
+            const shouldOpen = !item.classList.contains('is-open');
+            items.forEach(otherItem => {
+                const otherButton = otherItem.querySelector('.faq-question');
+                otherItem.classList.remove('is-open');
+                otherButton?.setAttribute('aria-expanded', 'false');
+            });
+
+            if (shouldOpen) {
+                item.classList.add('is-open');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+}
+
+function initMerchCarousel() {
+    const track = document.getElementById('merch-grid');
+    const carousel = track?.closest('.merch-carousel');
+    if (!track || !carousel) return;
+
+    const prevButton = carousel.querySelector('.merch-arrow-prev');
+    const nextButton = carousel.querySelector('.merch-arrow-next');
+    let slides = Array.from(track.querySelectorAll('.merch-card:not([data-clone])'));
+    if (!slides.length) return;
+
+    track.querySelectorAll('[data-clone="true"]').forEach(clone => clone.remove());
+    slides = Array.from(track.querySelectorAll('.merch-card:not([data-clone])'));
+
+    if (slides.length === 1) {
+        track.style.transform = 'translateX(0)';
+        prevButton?.setAttribute('hidden', '');
+        nextButton?.setAttribute('hidden', '');
+        return;
+    }
+
+    prevButton?.removeAttribute('hidden');
+    nextButton?.removeAttribute('hidden');
+
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+    firstClone.dataset.clone = 'true';
+    lastClone.dataset.clone = 'true';
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, slides[0]);
+
+    let index = 1;
+    let isAnimating = false;
+
+    const setPosition = (withTransition = true) => {
+        track.classList.toggle('no-transition', !withTransition);
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        if (!withTransition) {
+            track.offsetHeight;
+            track.classList.remove('no-transition');
+        }
+    };
+
+    const move = (direction) => {
+        if (isAnimating) return;
+        isAnimating = true;
+        index += direction;
+        setPosition(true);
+    };
+
+    track.ontransitionend = () => {
+        const realCount = slides.length;
+        if (index === realCount + 1) {
+            index = 1;
+            setPosition(false);
+        } else if (index === 0) {
+            index = realCount;
+            setPosition(false);
+        }
+        isAnimating = false;
+    };
+
+    if (prevButton) prevButton.onclick = () => move(-1);
+    if (nextButton) nextButton.onclick = () => move(1);
+    setPosition(false);
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (event) => {
-        const target = document.querySelector(anchor.getAttribute('href'));
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
         if (!target) return;
 
         event.preventDefault();
@@ -193,6 +292,18 @@ document.addEventListener('click', (e) => {
         e.preventDefault();
         const title = courseLink.dataset.title;
         const qrUrl = courseLink.dataset.qr;
+        if (!title && !qrUrl) {
+            const href = courseLink.getAttribute('href');
+            if (href && href.startsWith('#') && href !== '#') {
+                const target = document.querySelector(href);
+                if (!target) return;
+                const offset = target.offsetTop - header.offsetHeight - 16;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+            } else if (href && href !== '#') {
+                window.location.href = href;
+            }
+            return;
+        }
         openPaymentModal(title, qrUrl, 'Đăng ký khóa học');
     } else if (merchBtn) {
         const title = merchBtn.dataset.name;
@@ -210,15 +321,15 @@ async function fetchDynamicContent() {
     try {
         // Fetch Videos
         const { data: videos } = await supabaseClient.from('videos').select('*').order('is_featured', { ascending: false }).order('created_at', { ascending: false });
-        if (videos && videos.length > 0) renderVideos(videos);
+        renderVideos(videos || []);
 
         // Fetch Courses
         const { data: courses } = await supabaseClient.from('courses').select('*').order('created_at', { ascending: false });
-        if (courses && courses.length > 0) renderCourses(courses);
+        renderCourses(courses || []);
 
         // Fetch Merch
         const { data: merch } = await supabaseClient.from('merch').select('*').order('created_at', { ascending: false });
-        if (merch && merch.length > 0) renderMerch(merch);
+        renderMerch(merch || []);
 
     } catch (err) {
         console.error('Error fetching dynamic content:', err);
@@ -228,6 +339,15 @@ async function fetchDynamicContent() {
 function renderVideos(videos) {
     const container = document.getElementById('video-grid');
     if (!container) return;
+
+    if (!videos || videos.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--dark-text-muted); font-family: var(--font-mono); font-size: 14px; border: 1px dashed var(--dark-border); border-radius: var(--radius-lg);">
+                <p>RESOURCES_COMING_SOON...</p>
+            </div>
+        `;
+        return;
+    }
 
     container.innerHTML = videos.map((video, index) => `
         <article class="video-card ${video.is_featured ? 'featured' : ''} reveal visible">
@@ -271,6 +391,15 @@ function renderVideos(videos) {
 function renderCourses(courses) {
     const container = document.getElementById('courses-grid');
     if (!container) return;
+
+    if (!courses || courses.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--light-text-muted); font-family: var(--font-mono); font-size: 14px; border: 1px dashed var(--light-border); border-radius: var(--radius-lg);">
+                <p>COURSES_INITIALIZING...</p>
+            </div>
+        `;
+        return;
+    }
 
     container.innerHTML = courses.map(course => `
         <article class="course-card reveal visible">
@@ -328,6 +457,15 @@ function renderMerch(merchList) {
     const container = document.getElementById('merch-grid');
     if (!container) return;
 
+    if (!merchList || merchList.length === 0) {
+        container.innerHTML = `
+            <article class="merch-card" style="padding: 48px; text-align: center; color: var(--dark-text-muted); font-family: var(--font-mono); font-size: 14px; min-width: 100%;">
+                <p>MERCH_COLLECTION_PENDING...</p>
+            </article>
+        `;
+        return;
+    }
+
     container.innerHTML = merchList.map(merch => `
         <article class="merch-card reveal visible">
             <div class="merch-image">
@@ -348,6 +486,8 @@ function renderMerch(merchList) {
             </div>
         </article>
     `).join('');
+
+    initMerchCarousel();
 }
 
 function initYoutubeEmbeds() {
@@ -373,6 +513,8 @@ function initYoutubeEmbeds() {
 
 // Start fetching
 fetchDynamicContent();
+initFAQAccordion();
+initMerchCarousel();
 
 // Inject FAQ Schema
 const faqSchema = {
@@ -384,7 +526,7 @@ const faqSchema = {
             "name": "UIT Knowledge là gì?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "UIT Knowledge là cộng đồng học thuật chuyên tổng hợp video, khóa học và tài liệu dành riêng cho sinh viên trường Đại học Công nghệ Thông tin (UIT - VNU-HCM)."
+                "text": "UIT Knowledge là cộng đồng học thuật chuyên tổng hợp video, khóa học và tài liệu dành riêng cho sinh viên UIT - VNU-HCM."
             }
         },
         {
@@ -392,7 +534,7 @@ const faqSchema = {
             "name": "Nội dung ở đây có bám sát chương trình UIT không?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Có. Tất cả video và lộ trình khóa học đều được thiết kế dựa trên đề cương chi tiết và nhu cầu ôn tập thực tế của sinh viên UIT."
+                "text": "Có. Video và lộ trình khóa học được xây từ đề cương và nhu cầu ôn tập thực tế của sinh viên UIT."
             }
         },
         {
@@ -400,7 +542,15 @@ const faqSchema = {
             "name": "Tôi nên bắt đầu từ đâu nếu bị mất gốc?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Bạn nên bắt đầu từ các Video ôn tập nền tảng để nắm lại ý chính của môn học trước khi tham gia khóa học chuyên sâu."
+                "text": "Hãy xem video ôn tập nền tảng trước để nắm lại ý chính, rồi chọn khóa học theo môn đang yếu nhất."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Khóa học tại UIT Knowledge diễn ra như thế nào?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Khóa học thường học online có hướng dẫn, qua video và bài tập thực hành, mở theo từng đợt để hỗ trợ tốt hơn."
             }
         }
     ]
