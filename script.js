@@ -4,7 +4,7 @@ const nav = document.getElementById('nav');
 const sections = document.querySelectorAll('section[id], footer[id]');
 const navLinks = document.querySelectorAll('.nav-link');
 const revealElements = document.querySelectorAll('.reveal');
-const counters = document.querySelectorAll('.stat-number');
+const counters = document.querySelectorAll('.hero-stat-number');
 
 // Security: Sanitization helper to prevent XSS
 function escapeHTML(str) {
