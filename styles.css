@@ -1788,11 +1788,10 @@ select {
     }
 
     .hero-stats-bar {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        padding: 20px;
-        text-align: center;
+        display: flex;
+        justify-content: space-around;
+        padding: 18px 16px;
+        gap: 8px;
     }
 
     .hero-stat-divider {
@@ -1812,12 +1811,37 @@ select {
 /* --- Small Phone (≤ 480px) --- */
 @media (max-width: 480px) {
     html {
-        font-size: 15px; /* Slight scale down for tiny screens to prevent crowding */
+        font-size: 15px;
+    }
+
+    .section {
+        padding: 48px 0;
+    }
+
+    .section-header {
+        margin-bottom: 28px;
     }
 
     .hero-subjects {
         grid-template-columns: 1fr;
         gap: 10px;
+    }
+
+    .hero-stats-bar {
+        padding: 16px;
+        gap: 0;
+    }
+
+    .hero-stat-number {
+        font-size: 24px;
+    }
+
+    .hero-stat-plus {
+        font-size: 16px;
+    }
+
+    .hero-stat-label {
+        font-size: 10px;
     }
 
     .logo-text {
@@ -1837,6 +1861,117 @@ select {
         font-size: 10px;
         padding: 4px 12px;
     }
+
+    .footer-right {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-bottom: 32px;
+    }
+
+    .footer-shell {
+        padding: 48px 0 32px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 20px;
+    }
+
+    .course-image {
+        height: 140px;
+    }
+
+    .video-info,
+    .merch-info {
+        padding: 18px;
+    }
+
+    .video-title,
+    .course-title {
+        font-size: 18px;
+    }
+
+    .video-card:not(.featured) .video-title {
+        font-size: 17px;
+    }
+
+    .merch-name {
+        font-size: 22px;
+    }
+
+    .merch-desc {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .course-content {
+        padding: 16px;
+    }
+
+    .course-desc {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .course-price,
+    .merch-price {
+        font-size: 18px;
+    }
+
+    .qr-modal-container {
+        max-width: 100vw;
+        border-radius: 0;
+        min-height: 100dvh;
+    }
+
+    .qr-modal {
+        padding: 0;
+    }
+
+    .qr-image-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .qr-instructions {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .faq-question {
+        min-height: 56px;
+        padding: 0 16px;
+        font-size: 15px;
+    }
+
+    .faq-answer p {
+        padding: 0 16px;
+        font-size: 13px;
+    }
+
+    .faq-item.is-open .faq-answer p {
+        padding-bottom: 16px;
+    }
+
+    .footer-headline {
+        font-size: 28px;
+    }
+
+    .footer-social {
+        gap: 8px;
+    }
+
+    .footer-social-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
 }
 
 /* --- Tiny Phone (≤ 360px - iPhone SE) --- */
@@ -1846,21 +1981,144 @@ select {
         width: calc(100% - 24px);
     }
 
-    .hero-title {
-        font-size: 28px;
+    .hero {
+        padding-top: 90px;
+        padding-bottom: 32px;
     }
 
-    .hero-stat-number {
+    .hero-title {
         font-size: 24px;
     }
 
+    .hero-subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .hero-badge {
+        font-size: 9px;
+        padding: 3px 10px;
+        margin-bottom: 20px;
+    }
+
+    .hero-stat-number {
+        font-size: 22px;
+    }
+
+    .hero-stat-plus {
+        font-size: 14px;
+    }
+
+    .hero-stats-bar {
+        padding: 12px 10px;
+        margin-bottom: 32px;
+    }
+
+    .hero-actions {
+        gap: 8px;
+    }
+
     .btn-large {
-        min-height: 48px;
-        padding: 0 16px;
+        min-height: 46px;
+        padding: 0 14px;
+        font-size: 14px;
+    }
+
+    .hero-subject {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .hero-subject strong {
+        font-size: 14px;
+    }
+
+    .hero-subject-desc {
+        font-size: 12px;
+    }
+
+    .hero-subject-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .section {
+        padding: 36px 0;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .section-desc {
+        font-size: 14px;
     }
 
     .header-actions .btn-primary {
-        display: none; /* Hide non-essential button on tiny headers */
+        display: none;
+    }
+
+    .header-actions .hide-mobile.btn-secondary {
+        display: none;
+    }
+
+    .logo-lockup .logo-meta {
+        display: none;
+    }
+
+    .video-info,
+    .merch-info {
+        padding: 14px;
+    }
+
+    .video-duration {
+        font-size: 10px;
+        min-height: 24px;
+        padding: 0 8px;
+    }
+
+    .video-play {
+        width: 48px;
+        height: 48px;
+    }
+
+    .small-play {
+        width: 40px;
+        height: 40px;
+    }
+
+    .merch-name {
+        font-size: 20px;
+    }
+
+    .merch-card {
+        min-height: 360px;
+    }
+
+    .merch-image {
+        min-height: 200px;
+    }
+
+    .footer-social-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .footer-bottom {
+        padding-top: 16px;
+    }
+
+    .footer-copy {
+        font-size: 11px;
+    }
+
+    .footer-bottom-links {
+        gap: 16px;
+    }
+
+    .footer-bottom-link {
+        font-size: 11px;
     }
 }
 
