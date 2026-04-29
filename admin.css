@@ -16,8 +16,8 @@
     --primary-glow: rgba(62, 207, 142, 0.2);
 
     --text: #ffffff;
-    --text-dim: #a1a1a1;
-    --text-muted: #666666;
+    --text-dim: #c4c4c4;
+    --text-muted: #888888;
 
     --rad: 8px;
     --rad-sm: 6px;
@@ -214,7 +214,7 @@
 .item-info p {
     margin: 0;
     font-family: 'Fira Code', monospace;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text-muted);
 }
 
@@ -269,7 +269,7 @@
 
 .form-group label {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-dim);
     margin-bottom: 0.6rem;
@@ -336,7 +336,7 @@
 /* File Input & Checkbox Styling */
 .form-group input[type="file"] {
     padding: 0.6rem;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -363,7 +363,7 @@
 .btn-small {
     height: 36px;
     padding: 0 1rem;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 /* === RESPONSIVE === */
@@ -407,7 +407,7 @@
     .nav-item {
         flex-direction: column;
         padding: 8px 10px;
-        font-size: 10px;
+        font-size: 12px;
         gap: 4px;
         margin-bottom: 0;
         min-width: 0;
@@ -518,6 +518,6 @@
     .form-group textarea,
     .form-group select {
         padding: 0.65rem 0.85rem;
-        font-size: 13px;
+        font-size: 15px;
     }
 }

@@ -14,8 +14,8 @@
     --light-border: rgba(0, 0, 0, 0.08);
     --light-border-strong: rgba(0, 0, 0, 0.14);
     --light-text: #000000;
-    --light-text-secondary: rgba(0, 0, 0, 0.66);
-    --light-text-muted: rgba(0, 0, 0, 0.5);
+    --light-text-secondary: rgba(0, 0, 0, 0.78);
+    --light-text-muted: rgba(0, 0, 0, 0.58);
     --dark-canvas: #171717;
     --dark-surface: #0f0f0f;
     --dark-surface-soft: rgba(41, 41, 41, 0.84);
@@ -23,8 +23,8 @@
     --dark-border-strong: #363636;
     --dark-border-stronger: #393939;
     --dark-text: #fafafa;
-    --dark-text-secondary: #b4b4b4;
-    --dark-text-muted: #898989;
+    --dark-text-secondary: #cecece;
+    --dark-text-muted: #aaaaaa;
     --accent: #3ecf8e;
     --accent-strong: #00c573;
     --accent-border: rgba(62, 207, 142, 0.3);
@@ -116,7 +116,7 @@ select {
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.12em;
@@ -244,7 +244,7 @@ select {
 
 .logo-meta {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--light-text-muted);
@@ -439,7 +439,7 @@ select {
     border: 1px solid rgba(62, 207, 142, 0.2);
     background: rgba(62, 207, 142, 0.08);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -572,11 +572,11 @@ select {
 }
 
 .hero-stat-label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.55);
 }
 
 .hero-stat-divider {
@@ -625,17 +625,17 @@ select {
 .hero-subject-kicker {
     display: block;
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.5);
     margin-bottom: 2px;
 }
 
 .hero-subject strong {
     display: block;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: rgba(255, 255, 255, 0.95);
@@ -643,9 +643,9 @@ select {
 }
 
 .hero-subject-desc {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-weight: 400;
 }
 
@@ -738,7 +738,7 @@ select {
     border: 1px solid rgba(62, 207, 142, 0.18);
     color: var(--accent-strong);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 18px;
@@ -889,7 +889,7 @@ select {
     border: 1px solid var(--dark-border);
     color: var(--dark-text);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .video-info,
@@ -1039,7 +1039,7 @@ select {
     background: var(--light-text);
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1079,7 +1079,7 @@ select {
     margin-bottom: 14px;
     color: var(--light-text-muted);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -1258,7 +1258,7 @@ select {
     display: block;
     margin-bottom: 10px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--dark-text-muted);
@@ -1393,7 +1393,7 @@ select {
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -1458,11 +1458,11 @@ select {
 
 .footer-links-heading {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.4);
     margin-bottom: 16px;
 }
 
@@ -1476,7 +1476,7 @@ select {
 .footer-link {
     display: inline-block;
     padding: 8px 0;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     font-size: 15px;
     font-weight: 400;
@@ -1500,9 +1500,9 @@ select {
     align-items: center;
     gap: 10px;
     padding: 9px 0;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     transition: color var(--transition);
     cursor: pointer;
 }
@@ -1540,8 +1540,8 @@ select {
 }
 
 .footer-copy {
-    color: rgba(255, 255, 255, 0.28);
-    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 15px;
 }
 
 .footer-bottom-links {
@@ -1550,9 +1550,9 @@ select {
 }
 
 .footer-bottom-link {
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 15px;
     transition: color var(--transition);
 }
 
@@ -1738,7 +1738,7 @@ select {
 
     .faq-answer p {
         padding: 0 20px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .faq-item.is-open .faq-answer p {
@@ -1841,7 +1841,7 @@ select {
     }
 
     .hero-stat-label {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .logo-text {
@@ -1858,7 +1858,7 @@ select {
     }
 
     .hero-badge {
-        font-size: 10px;
+        font-size: 12px;
         padding: 4px 12px;
     }
 
@@ -1907,7 +1907,7 @@ select {
     }
 
     .merch-desc {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: 10px;
     }
 
@@ -1916,7 +1916,7 @@ select {
     }
 
     .course-desc {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: 10px;
     }
 
@@ -1941,7 +1941,7 @@ select {
     }
 
     .qr-instructions {
-        font-size: 13px;
+        font-size: 15px;
         padding: 12px;
     }
 
@@ -1953,7 +1953,7 @@ select {
 
     .faq-answer p {
         padding: 0 16px;
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .faq-item.is-open .faq-answer p {
@@ -1970,7 +1970,7 @@ select {
 
     .footer-social-btn {
         padding: 8px 14px;
-        font-size: 13px;
+        font-size: 15px;
     }
 }
 
@@ -1996,7 +1996,7 @@ select {
     }
 
     .hero-badge {
-        font-size: 9px;
+        font-size: 11px;
         padding: 3px 10px;
         margin-bottom: 20px;
     }
@@ -2034,7 +2034,7 @@ select {
     }
 
     .hero-subject-desc {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .hero-subject-icon {
@@ -2072,7 +2072,7 @@ select {
     }
 
     .video-duration {
-        font-size: 10px;
+        font-size: 12px;
         min-height: 24px;
         padding: 0 8px;
     }
@@ -2101,7 +2101,7 @@ select {
 
     .footer-social-btn {
         padding: 6px 12px;
-        font-size: 12px;
+        font-size: 14px;
         gap: 6px;
     }
 
@@ -2110,7 +2110,7 @@ select {
     }
 
     .footer-copy {
-        font-size: 11px;
+        font-size: 13px;
     }
 
     .footer-bottom-links {
@@ -2118,7 +2118,7 @@ select {
     }
 
     .footer-bottom-link {
-        font-size: 11px;
+        font-size: 13px;
     }
 }
 
@@ -2276,7 +2276,7 @@ select {
     min-height: 0;
     overflow: hidden;
     padding: 0 24px;
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.6;
     color: var(--light-text-secondary);
 }
@@ -2493,6 +2493,16 @@ select {
 
 /* === ULTRA-WIDE & 4K SCALING === */
 /* Kỹ thuật Scaling giúp giao diện lấp đầy và sang trọng hơn trên màn hình lớn (27" trở lên) */
+@media (min-width: 1440px) {
+    html {
+        font-size: 17px;
+    }
+
+    :root {
+        --container: 1400px;
+    }
+}
+
 @media (min-width: 1920px) {
     html {
         font-size: 18px; /* Tăng tỉ lệ hệ thống lên ~12% */
