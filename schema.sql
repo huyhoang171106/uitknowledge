@@ -80,8 +80,24 @@ CREATE TABLE IF NOT EXISTS public.course_registrations (
 
 -- Enable RLS for course_registrations
 ALTER TABLE public.course_registrations ENABLE ROW LEVEL SECURITY;
--- Allow anyone to submit a registration
 CREATE POLICY "Public Insert Access" ON public.course_registrations FOR INSERT WITH CHECK (true);
--- Only authenticated admins can view registrations
 CREATE POLICY "Admin Read Access" ON public.course_registrations FOR SELECT USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin All Access" ON public.course_registrations FOR ALL USING (auth.role() = 'authenticated');
+
+-- 6. VIDEO REGISTRATIONS TABLE
+CREATE TABLE IF NOT EXISTS public.video_registrations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMPTZ DEFAULT now(),
+    full_name TEXT NOT NULL,
+    student_id TEXT NOT NULL,
+    has_teams_email TEXT NOT NULL,
+    teams_email TEXT NOT NULL,
+    courses TEXT[] NOT NULL,
+    total_price TEXT
+);
+
+-- Enable RLS for video_registrations
+ALTER TABLE public.video_registrations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Insert Access" ON public.video_registrations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin Read Access" ON public.video_registrations FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Admin All Access" ON public.video_registrations FOR ALL USING (auth.role() = 'authenticated');

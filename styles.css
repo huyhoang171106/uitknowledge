@@ -2708,3 +2708,62 @@ select {
         --container: 1800px; /* Tối ưu hóa cho các màn hình Ultra-wide cực lớn */
     }
 }
+
+/* === COURSE GLASS EFFECTS === */
+.glass-effect {
+    background: linear-gradient(135deg, #3ecf8e 0%, #2eaf7d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-effect-alt {
+    background: linear-gradient(135deg, #7000ff 0%, #4d00b3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-effect::before,
+.glass-effect-alt::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.course-icon {
+    font-size: 64px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.course-card:hover .course-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.course-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-border-soft);
+}
+
+.registration-form .form-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .registration-form .form-grid-2col {
+        grid-template-columns: 1fr;
+    }
+}

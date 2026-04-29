@@ -840,6 +840,76 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Video Registration Modal -->
+        <div id="video-modal" class="qr-modal" aria-hidden="true">
+            <div class="qr-modal-overlay"></div>
+            <div class="qr-modal-container" style="max-width: 600px;">
+                <div class="qr-modal-header">
+                    <h3>Đăng ký xem Video</h3>
+                    <button id="close-video-modal" class="qr-modal-close" aria-label="Đóng">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="qr-modal-body" style="text-align: left;">
+                    <form id="video-form" class="registration-form">
+                        <div class="form-grid-2col">
+                            <div class="form-group">
+                                <label for="video-full-name">Họ và tên của bạn <span class="required">*</span></label>
+                                <input type="text" id="video-full-name" name="full_name" placeholder="Nguyễn Văn A" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-student-id">MSSV <span class="required">*</span></label>
+                                <input type="text" id="video-student-id" name="student_id" placeholder="2152xxxx" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2col">
+                            <div class="form-group">
+                                <label>Có mail Teams chưa? <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="has_teams_email" value="Rồi" required>
+                                        <span>Rồi</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="has_teams_email" value="Chưa">
+                                        <span>Chưa</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-teams-email">Email Teams sinh viên <span class="required">*</span></label>
+                                <input type="text" id="video-teams-email" name="teams_email" placeholder="2152xxxx@gm.uit.edu.vn" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Môn học muốn xem video <span class="required">*</span></label>
+                            <div class="checkbox-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="OOP"><span>OOP</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="DSA"><span>DSA</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="XSTK"><span>Xác suất thống kê</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="CTRR"><span>Cấu trúc rời rạc</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="NM MMT"><span>Mạng máy tính</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="TCCS MT2"><span>Kiến trúc máy tính 2</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="CSDL"><span>Cơ sở dữ liệu</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="HĐH"><span>Hệ điều hành</span></label>
+                            </div>
+                        </div>
+
+                        <div class="registration-footer">
+                            <button type="submit" class="btn btn-primary btn-full" id="submit-video-btn">
+                                Gửi đăng ký
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <script
             async

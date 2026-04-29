@@ -367,15 +367,74 @@ registrationForm?.addEventListener('submit', async (e) => {
     }
 });
 
+// Video Registration Modal Functions
+function openVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const form = document.getElementById('video-form');
+    if (!modal || !form) return;
+    form.reset();
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+}
+
+document.getElementById('close-video-modal')?.addEventListener('click', closeVideoModal);
+document.getElementById('video-modal')?.querySelector('.qr-modal-overlay')?.addEventListener('click', closeVideoModal);
+
+document.getElementById('video-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submit-video-btn');
+    if (!submitBtn) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang gửi...';
+
+    const formData = new FormData(e.target);
+    const data = {
+        full_name: formData.get('full_name'),
+        student_id: formData.get('student_id'),
+        has_teams_email: formData.get('has_teams_email'),
+        teams_email: formData.get('teams_email'),
+        courses: formData.getAll('courses')
+    };
+
+    try {
+        const { error } = await supabaseClient.from('video_registrations').insert([data]);
+        if (error) throw error;
+        alert('Đăng ký xem video thành công! Vui lòng chờ chúng mình duyệt nhé.');
+        closeVideoModal();
+    } catch (err) {
+        alert('Có lỗi xảy ra: ' + err.message);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Gửi đăng ký';
+    }
+});
+
 // Delegate course and merch link clicks
 document.addEventListener('click', (e) => {
     const courseLink = e.target.closest('.course-link');
+    const videoLink = e.target.closest('.video-link');
     const merchBtn = e.target.closest('.merch-btn');
 
     if (courseLink) {
         e.preventDefault();
         const title = courseLink.dataset.title || courseLink.innerText;
         openRegistrationModal(title);
+    } else if (videoLink) {
+        e.preventDefault();
+        openVideoModal();
     } else if (merchBtn) {
         const title = merchBtn.dataset.name;
         const qrUrl = merchBtn.dataset.qr;
@@ -394,9 +453,8 @@ async function fetchDynamicContent() {
         const { data: videos } = await supabaseClient.from('videos').select('*').order('is_featured', { ascending: false }).order('created_at', { ascending: false });
         renderVideos(videos || []);
 
-        // Fetch Courses
-        const { data: courses } = await supabaseClient.from('courses').select('*').order('created_at', { ascending: false });
-        renderCourses(courses || []);
+        // Static Course Cards (Manual Registration + Video Form)
+        renderCourses();
 
         // Fetch Merch
         const { data: merch } = await supabaseClient.from('merch').select('*').order('created_at', { ascending: false });
@@ -462,61 +520,52 @@ function renderVideos(videos) {
     injectSchema('video-schema', videoSchema);
 }
 
-function renderCourses(courses) {
+function renderCourses() {
     const container = document.getElementById('courses-grid');
     if (!container) return;
 
-    if (!courses || courses.length === 0) {
-        container.innerHTML = `
-            <div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--light-text-muted); font-family: var(--font-mono); font-size: 14px; border: 1px dashed var(--light-border); border-radius: var(--radius-lg);">
-                <p>COURSES_INITIALIZING...</p>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = courses.map(course => `
+    container.innerHTML = `
         <article class="course-card reveal">
-            <div class="course-image ${escapeHTML(course.image_class || 'pastel-1')}">
-                ${course.is_hot ? '<div class="course-badge badge-hot">Hot</div>' : '<div class="course-badge">Online</div>'}
+            <div class="course-image glass-effect">
+                <div class="course-badge">Online</div>
+                <div class="course-icon">🎓</div>
             </div>
             <div class="course-content">
                 <div class="course-meta">
-                    <span>${escapeHTML(course.category || '')}</span>
-                    <span>${escapeHTML(course.duration || '')}</span>
+                    <span>Lộ trình bài bản</span>
+                    <span>Học cùng Mentor</span>
                 </div>
-                <h3 class="course-title">${escapeHTML(course.title)}</h3>
-                <p class="course-desc">${escapeHTML(course.description || '')}</p>
+                <h3 class="course-title">Khóa học theo môn</h3>
+                <p class="course-desc">Học trực tiếp cùng mentor bám sát đề cương UIT. Giải bài tập, ôn thi và hỗ trợ 24/7 suốt kỳ học.</p>
                 <div class="course-footer">
-                    <span class="course-price">${escapeHTML(course.price || 'Theo đợt mở lớp')}</span>
-                    <a href="${escapeHTML(course.registration_link || '#')}" 
-                       class="course-link" 
-                       data-title="${escapeHTML(course.title)}" 
-                       data-qr="${escapeHTML(course.payment_qr_url || '')}">Đăng ký ngay</a>
+                    <span class="course-price">Đăng ký lớp mới</span>
+                    <a href="#" class="course-link" data-title="Khóa học tổng hợp">Đăng ký ngay</a>
                 </div>
             </div>
         </article>
-    `).join('');
+
+        <article class="course-card reveal">
+            <div class="course-image glass-effect-alt">
+                <div class="course-badge badge-hot">Dành cho bạn</div>
+                <div class="course-icon">🎬</div>
+            </div>
+            <div class="course-content">
+                <div class="course-meta">
+                    <span>Tự học linh hoạt</span>
+                    <span>Kho video giải đề</span>
+                </div>
+                <h3 class="course-title">Đăng ký xem Video</h3>
+                <p class="course-desc">Truy cập kho video ôn tập trọng tâm, giải chi tiết đề thi các năm giúp bạn nắm chắc kiến thức trong thời gian ngắn.</p>
+                <div class="course-footer">
+                    <span class="course-price">Miễn phí / Trả phí</span>
+                    <a href="#" class="video-link btn btn-secondary btn-small" style="padding: 10px 20px; font-weight: 600;">Xem ngay</a>
+                </div>
+            </div>
+        </article>
+    `;
 
     // Observe new reveal elements
     container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-
-    // Inject Course Schema
-    const courseSchema = {
-        "@context": "https://schema.org",
-        "@graph": courses.map(course => ({
-            "@type": "Course",
-            "name": course.title,
-            "description": course.description || course.title,
-            "provider": {
-                "@type": "Organization",
-                "name": "UIT Knowledge",
-                "sameAs": "https://www.uitknowledge.org/"
-            }
-        }))
-    };
-    injectSchema('course-schema', courseSchema);
 }
 
 function injectSchema(id, schemaObj) {
