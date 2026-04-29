@@ -293,10 +293,20 @@
                         </div>
                     </article>
                 </div>
+                <div class="hero-scroll-down reveal">
+                    <a href="#intro" class="scroll-bounce" aria-label="Cuộn xuống">
+                        <div class="mouse">
+                            <div class="wheel"></div>
+                        </div>
+                        <div class="chevron"></div>
+                        <div class="chevron"></div>
+                        <div class="chevron"></div>
+                    </a>
+                </div>
             </div>
         </section>
 
-            <section class="section section-light intro-band">
+            <section class="section section-light intro-band" id="intro">
                 <div class="container">
                     <div class="intro-header reveal">
                         <div class="eyebrow">CÁCH HOẠT ĐỘNG</div>
@@ -573,132 +583,75 @@
         </main>
 
         <footer class="footer footer-dark" id="lien-he">
-            <div class="footer-glow-wrap" aria-hidden="true">
-                <div class="footer-glow-1"></div>
-                <div class="footer-glow-2"></div>
-            </div>
             <div class="container footer-shell">
-
-                <!-- Top grid -->
-                <div class="footer-top">
-
+                <div class="footer-grid">
                     <!-- Brand column -->
-                    <div class="footer-brand">
-                        <div class="footer-eyebrow">LIÊN HỆ / CỘNG ĐỒNG</div>
-                        <h2 class="footer-headline">Nếu cần hỏi<br>thêm, cứ nhắn.</h2>
-                        <p class="footer-tagline">Làm ra để sinh viên UIT học đỡ khổ hơn.</p>
-
-                        <!-- Social icons -->
-                        <div class="footer-social">
-                            <a
-                                href="https://www.youtube.com/@UIT_Knowledge"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Kênh YouTube UIT Knowledge"
-                                class="footer-social-btn"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <div class="footer-col footer-brand">
+                        <div class="footer-logo">
+                            <span class="logo-accent">UIT</span> Knowledge
+                        </div>
+                        <p class="footer-description">
+                            Your trusted learning platform for UIT students. We simplify difficult subjects and help you achieve academic excellence.
+                        </p>
+                        <div class="footer-socials">
+                            <a href="https://www.youtube.com/@UIT_Knowledge" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                                 </svg>
-                                YouTube
                             </a>
-                            <a
-                                href="https://facebook.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Facebook GenCanyon"
-                                class="footer-social-btn"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                                 </svg>
-                                Facebook
                             </a>
-                            <a
-                                href="https://www.uitknowledge.org/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Website UIT Knowledge"
-                                class="footer-social-btn"
-                            >
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="2" y1="12" x2="22" y2="12"/>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            <a href="https://t.me/uitknowledge" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Telegram">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                                 </svg>
-                                Website
                             </a>
                         </div>
                     </div>
 
-                    <!-- Links + contact -->
-                    <div class="footer-right">
+                    <!-- Quick Links column -->
+                    <div class="footer-col">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="#khoa-hoc">Courses</a></li>
+                            <li><a href="#video">Videos</a></li>
+                            <li><a href="#merch">Merchandise</a></li>
+                            <li><a href="#gioi-thieu">About Us</a></li>
+                        </ul>
+                    </div>
 
-                        <div class="footer-links-col">
-                            <h4 class="footer-links-heading">Điều hướng</h4>
-                            <nav class="footer-nav-list">
-                                <a href="#gioi-thieu" class="footer-link">Trang chủ</a>
-                                <a href="#video" class="footer-link">Video</a>
-                                <a href="#khoa-hoc" class="footer-link">Khóa học</a>
-                                <a href="#merch" class="footer-link">Merch</a>
-                                <a href="#lien-he" class="footer-link">Liên hệ</a>
-                            </nav>
-                        </div>
-
-                        <div class="footer-contact-col">
-                            <h4 class="footer-links-heading">Liên hệ</h4>
-                            <div class="footer-contact-list">
-                                <a href="mailto:dinh5609@gmail.com" class="footer-contact-item">
-                                    <span class="footer-contact-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                            <polyline points="22,6 12,13 2,6"/>
-                                        </svg>
-                                    </span>
-                                    dinh5609@gmail.com
-                                </a>
-                                <a href="tel:0971937492" class="footer-contact-item">
-                                    <span class="footer-contact-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.35 2 2 0 0 1 3.61 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                        </svg>
-                                    </span>
-                                    Zalo: 0971937492
-                                </a>
-                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-contact-item">
-                                    <span class="footer-contact-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                        </svg>
-                                    </span>
-                                    Facebook: GenCanyon
-                                </a>
-                                <a href="https://www.uitknowledge.org/" target="_blank" rel="noopener noreferrer" class="footer-contact-item">
-                                    <span class="footer-contact-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <circle cx="12" cy="12" r="10"/>
-                                            <line x1="2" y1="12" x2="22" y2="12"/>
-                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                                        </svg>
-                                    </span>
-                                    Website gốc
-                                </a>
+                    <!-- Contact column -->
+                    <div class="footer-col">
+                        <h4 class="footer-title">Contact</h4>
+                        <div class="contact-info">
+                            <a href="mailto:contact@uitknowledge.vn" class="contact-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                contact@uitknowledge.vn
+                            </a>
+                            <div class="contact-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>University of Information Technology<br>Ho Chi Minh City, Vietnam</span>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- Bottom bar -->
+                <hr class="footer-divider">
+
                 <div class="footer-bottom">
-                    <p class="footer-copy">© 2026 UIT Knowledge. Làm ra để sinh viên UIT học đỡ khổ hơn.</p>
-                    <div class="footer-bottom-links">
-                        <a href="#gioi-thieu" class="footer-bottom-link">Trang chủ</a>
-                        <a href="#khoa-hoc" class="footer-bottom-link">Khóa học</a>
-                        <a href="#lien-he" class="footer-bottom-link">Liên hệ</a>
-                    </div>
+                    <p class="copyright">© 2026 UIT Knowledge. All rights reserved.</p>
+                    <p class="credit">Made with <span class="heart-icon">❤️</span> for UIT students</p>
                 </div>
-
             </div>
         </footer>
 
@@ -757,6 +710,133 @@
                     >
                         Tôi đã thanh toán
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Modal -->
+        <div id="registration-modal" class="qr-modal" aria-hidden="true">
+            <div class="qr-modal-overlay"></div>
+            <div class="qr-modal-container" style="max-width: 600px;">
+                <div class="qr-modal-header">
+                    <h3>Đăng ký khóa học</h3>
+                    <button id="close-registration-modal" class="qr-modal-close" aria-label="Đóng">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="qr-modal-body" style="text-align: left;">
+                    <form id="registration-form" class="registration-form">
+                        <div class="form-grid-2col">
+                            <div class="form-group">
+                                <label for="reg-full-name">Họ và tên <span class="required">*</span></label>
+                                <input type="text" id="reg-full-name" name="full_name" placeholder="Nguyễn Văn A" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-student-id">MSSV / Email <span class="required">*</span></label>
+                                <input type="text" id="reg-student-id" name="student_id_email" placeholder="2152xxxx" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2col">
+                            <div class="form-group">
+                                <label>Có mail Teams chưa? <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="has_teams_email" value="Rồi" required>
+                                        <span>Rồi</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="has_teams_email" value="Chưa">
+                                        <span>Chưa</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-teams-email">Email Teams <span class="required">*</span></label>
+                                <input type="text" id="reg-teams-email" name="teams_email" placeholder="2152xxxx@gm.uit.edu.vn" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Môn học muốn đăng ký <span class="required">*</span></label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="courses" value="OOP">
+                                    <span>OOP</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="courses" value="DSA">
+                                    <span>DSA</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="courses" value="Xác Suất Thống Kê">
+                                    <span>Xác Suất Thống Kê</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="courses" value="Cấu Trúc Rời Rạc">
+                                    <span>Cấu Trúc Rời Rạc</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2col">
+                            <div class="form-group">
+                                <label for="reg-goal">Mục tiêu <span class="required">*</span></label>
+                                <select id="reg-goal" name="goal" required>
+                                    <option value="" disabled selected>Chọn mục tiêu</option>
+                                    <option value="Qua môn">Qua môn</option>
+                                    <option value="Điểm khá">Điểm khá</option>
+                                    <option value="Điểm giỏi">Điểm giỏi</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Rảnh cuối tuần chứ? <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="weekend_available" value="Có" required>
+                                        <span>Có</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="weekend_available" value="Không">
+                                        <span>Không</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-difficulties">Khó khăn đang gặp phải</label>
+                            <textarea id="reg-difficulties" name="difficulties" rows="2" placeholder="Chia sẻ thêm về khó khăn của bạn..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thời gian có thể học <span class="required">*</span></label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_slots" value="13h00 - 14h30">
+                                    <span>13h - 14h30</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_slots" value="15h00 - 16h30">
+                                    <span>15h - 16h30</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="time_slots" value="21h00 - 22h30">
+                                    <span>21h - 22h30</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="registration-footer">
+                            <button type="submit" class="btn btn-primary btn-full" id="submit-registration-btn">
+                                Gửi đăng ký
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

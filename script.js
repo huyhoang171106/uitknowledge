@@ -184,10 +184,12 @@ function initMerchCarousel() {
     const lastClone = slides[slides.length - 1].cloneNode(true);
     firstClone.dataset.clone = 'true';
     lastClone.dataset.clone = 'true';
+    firstClone.classList.add('visible');
+    lastClone.classList.add('visible');
     track.appendChild(firstClone);
     track.insertBefore(lastClone, slides[0]);
 
-    let index = 1;
+    let index = slides.length > 1 ? 1 : 0;
     let isAnimating = false;
 
     const setPosition = (withTransition = true) => {
@@ -207,7 +209,9 @@ function initMerchCarousel() {
         setPosition(true);
     };
 
-    track.ontransitionend = () => {
+    track.ontransitionend = (e) => {
+        if (e.target !== track || e.propertyName !== 'transform') return;
+
         const realCount = slides.length;
         if (index === realCount + 1) {
             index = 1;
@@ -249,6 +253,11 @@ const paymentQrImage = document.getElementById('payment-qr-image');
 const paymentCourseTitle = document.getElementById('payment-course-title');
 const confirmPaymentBtn = document.getElementById('confirm-payment-btn');
 
+// Registration Modal Elements
+const registrationModal = document.getElementById('registration-modal');
+const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
+const registrationForm = document.getElementById('registration-form');
+
 function openPaymentModal(itemTitle, qrUrl, modalHeader = 'Thanh toán') {
     if (!qrUrl) {
         alert('Thông tin thanh toán sẽ sớm được cập nhật.');
@@ -274,6 +283,7 @@ function closePaymentModal() {
     paymentModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     paymentQrImage.src = '';
+    setTimeout(() => { paymentModal.style.display = 'none'; }, 300);
 }
 
 closePaymentModalBtn?.addEventListener('click', closePaymentModal);
@@ -283,6 +293,80 @@ confirmPaymentBtn?.addEventListener('click', () => {
     closePaymentModal();
 });
 
+// Registration Modal Functions
+function openRegistrationModal(courseTitle) {
+    const modal = document.getElementById('registration-modal');
+    const form = document.getElementById('registration-form');
+    
+    if (!modal || !form) return;
+    
+    form.reset();
+    
+    if (courseTitle) {
+        const titleLower = courseTitle.toLowerCase();
+        form.querySelectorAll('input[name="courses"]').forEach(cb => {
+            const valLower = cb.value.toLowerCase();
+            if (titleLower.includes(valLower) || 
+                (cb.value === 'OOP' && titleLower.includes('hướng đối tượng')) ||
+                (cb.value === 'DSA' && (titleLower.includes('cấu trúc dữ liệu') || titleLower.includes('giải thuật')))) {
+                cb.checked = true;
+            }
+        });
+    }
+
+    modal.style.display = 'flex'; // Force display
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeRegistrationModal() {
+    const modal = document.getElementById('registration-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+}
+
+closeRegistrationModalBtn?.addEventListener('click', closeRegistrationModal);
+registrationModal?.querySelector('.qr-modal-overlay')?.addEventListener('click', closeRegistrationModal);
+
+registrationForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submit-registration-btn');
+    if (!submitBtn) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang gửi...';
+
+    const formData = new FormData(e.target);
+    const data = {
+        full_name: formData.get('full_name'),
+        student_id_email: formData.get('student_id_email'),
+        has_teams_email: formData.get('has_teams_email'),
+        teams_email: formData.get('teams_email'),
+        courses: formData.getAll('courses'),
+        goal: formData.get('goal'),
+        difficulties: formData.get('difficulties'),
+        weekend_available: formData.get('weekend_available'),
+        time_slots: formData.getAll('time_slots')
+    };
+
+    try {
+        const { error } = await supabaseClient.from('course_registrations').insert([data]);
+        if (error) throw error;
+        alert('Đăng ký thành công! Chúng mình sẽ liên hệ với bạn sớm.');
+        closeRegistrationModal();
+    } catch (err) {
+        alert('Có lỗi xảy ra: ' + err.message);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Gửi đăng ký';
+    }
+});
+
 // Delegate course and merch link clicks
 document.addEventListener('click', (e) => {
     const courseLink = e.target.closest('.course-link');
@@ -290,21 +374,8 @@ document.addEventListener('click', (e) => {
 
     if (courseLink) {
         e.preventDefault();
-        const title = courseLink.dataset.title;
-        const qrUrl = courseLink.dataset.qr;
-        if (!title && !qrUrl) {
-            const href = courseLink.getAttribute('href');
-            if (href && href.startsWith('#') && href !== '#') {
-                const target = document.querySelector(href);
-                if (!target) return;
-                const offset = target.offsetTop - header.offsetHeight - 16;
-                window.scrollTo({ top: offset, behavior: 'smooth' });
-            } else if (href && href !== '#') {
-                window.location.href = href;
-            }
-            return;
-        }
-        openPaymentModal(title, qrUrl, 'Đăng ký khóa học');
+        const title = courseLink.dataset.title || courseLink.innerText;
+        openRegistrationModal(title);
     } else if (merchBtn) {
         const title = merchBtn.dataset.name;
         const qrUrl = merchBtn.dataset.qr;
@@ -350,7 +421,7 @@ function renderVideos(videos) {
     }
 
     container.innerHTML = videos.map((video, index) => `
-        <article class="video-card ${video.is_featured ? 'featured' : ''} reveal visible">
+        <article class="video-card ${video.is_featured ? 'featured' : ''} reveal">
             <div class="video-embed lite-youtube" data-video-id="${video.video_id}">
                 <div class="video-thumb" style="background-image: url('${video.thumbnail_url || `https://img.youtube.com/vi/${video.video_id}/maxresdefault.jpg`}')">
                     <div class="video-overlay"></div>
@@ -368,6 +439,9 @@ function renderVideos(videos) {
             </div>
         </article>
     `).join('');
+
+    // Observe new reveal elements
+    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     // Re-initialize YouTube embeds for dynamic content
     initYoutubeEmbeds();
@@ -402,7 +476,7 @@ function renderCourses(courses) {
     }
 
     container.innerHTML = courses.map(course => `
-        <article class="course-card reveal visible">
+        <article class="course-card reveal">
             <div class="course-image ${escapeHTML(course.image_class || 'pastel-1')}">
                 ${course.is_hot ? '<div class="course-badge badge-hot">Hot</div>' : '<div class="course-badge">Online</div>'}
             </div>
@@ -423,6 +497,9 @@ function renderCourses(courses) {
             </div>
         </article>
     `).join('');
+
+    // Observe new reveal elements
+    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
     // Inject Course Schema
@@ -457,6 +534,15 @@ function renderMerch(merchList) {
     const container = document.getElementById('merch-grid');
     if (!container) return;
 
+    function formatVND(value) {
+        if (!value) return '';
+        const num = Number(String(value).replace(/[^0-9]/g, ''));
+        if (num > 0) {
+            return num.toLocaleString('vi-VN') + 'đ';
+        }
+        return value;
+    }
+
     if (!merchList || merchList.length === 0) {
         container.innerHTML = `
             <article class="merch-card" style="padding: 48px; text-align: center; color: var(--dark-text-muted); font-family: var(--font-mono); font-size: 14px; min-width: 100%;">
@@ -467,10 +553,10 @@ function renderMerch(merchList) {
     }
 
     container.innerHTML = merchList.map(merch => `
-        <article class="merch-card reveal visible">
+        <article class="merch-card reveal">
             <div class="merch-image">
                 ${merch.image_url ?
-            `<img src="${escapeHTML(merch.image_url)}" alt="${escapeHTML(merch.name)}" style="width: 100%; height: 100%; object-fit: cover;">` :
+            `<img src="${escapeHTML(merch.image_url)}" alt="${escapeHTML(merch.name)}" style="width: 100%; height: 100%; object-fit: contain; padding: 24px;">` :
             `<div class="merch-placeholder ${escapeHTML(merch.placeholder_class || 'merch-shirt')}"><span>${escapeHTML(merch.name)}</span></div>`
         }
             </div>
@@ -478,14 +564,17 @@ function renderMerch(merchList) {
                 <h3 class="merch-name">${escapeHTML(merch.name)}</h3>
                 <p class="merch-desc">${escapeHTML(merch.description || '')}</p>
                 <div class="merch-footer">
-                    <span class="merch-price">${escapeHTML(merch.price || '')}</span>
-                    <button class="btn btn-primary btn-small merch-btn" 
+                    <span class="merch-price">${escapeHTML(formatVND(merch.price))}</span>
+                    <button class="btn btn-primary btn-merch merch-btn" 
                             data-name="${escapeHTML(merch.name)}" 
                             data-qr="${escapeHTML(merch.payment_qr_url || '')}">Mua ngay</button>
                 </div>
             </div>
         </article>
     `).join('');
+
+    // Observe new reveal elements
+    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     initMerchCarousel();
 }
@@ -514,7 +603,6 @@ function initYoutubeEmbeds() {
 // Start fetching
 fetchDynamicContent();
 initFAQAccordion();
-initMerchCarousel();
 
 // Inject FAQ Schema
 const faqSchema = {
