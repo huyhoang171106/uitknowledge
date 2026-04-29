@@ -539,7 +539,7 @@ function renderCourses() {
                 <p class="course-desc">Học trực tiếp cùng mentor bám sát đề cương UIT. Giải bài tập, ôn thi và hỗ trợ 24/7 suốt kỳ học.</p>
                 <div class="course-footer">
                     <span class="course-price">Đăng ký lớp mới</span>
-                    <a href="#" class="course-link" data-title="Khóa học tổng hợp">Đăng ký ngay</a>
+                    <a href="#" class="course-link btn btn-primary btn-small">Đăng ký ngay</a>
                 </div>
             </div>
         </article>
@@ -555,10 +555,10 @@ function renderCourses() {
                     <span>Kho video giải đề</span>
                 </div>
                 <h3 class="course-title">Đăng ký xem Video</h3>
-                <p class="course-desc">Truy cập kho video ôn tập trọng tâm, giải chi tiết đề thi các năm giúp bạn nắm chắc kiến thức trong thời gian ngắn.</p>
+                <p class="course-desc">Truy cập kho video ôn tập trọng tâm, giải chi tiết đề thi các năm giúp bạn nắm chắc kiến thức.</p>
                 <div class="course-footer">
                     <span class="course-price">Miễn phí / Trả phí</span>
-                    <a href="#" class="video-link btn btn-secondary btn-small" style="padding: 10px 20px; font-weight: 600;">Xem ngay</a>
+                    <a href="#" class="video-link btn btn-secondary btn-small">Xem ngay</a>
                 </div>
             </div>
         </article>
