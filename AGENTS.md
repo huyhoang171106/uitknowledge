@@ -1,65 +1,54 @@
 <!-- OMC:START -->
-<!-- OMC:VERSION:4.12.0 -->
+<!-- OMC:VERSION:1.0.0 -->
 
-# oh-my-Codex - Intelligent Multi-Agent Orchestration
+# UIT Knowledge — Repo Guide
 
-You are running with oh-my-Codex (OMC), a multi-agent orchestration layer for Codex.
-Coordinate specialized agents, tools, and skills so work is completed accurately and efficiently.
+Vanilla HTML/CSS/JS static landing page + Supabase back-end. No framework, no build step beyond env injection.
 
-<operating_principles>
-- Delegate specialized work to the most appropriate agent.
-- Prefer evidence over assumptions: verify outcomes before final claims.
-- Choose the lightest-weight path that preserves quality.
-- Consult official docs before implementing with SDKs/frameworks/APIs.
-</operating_principles>
+## Project Structure
 
-<delegation_rules>
-Delegate for: multi-file changes, refactors, debugging, reviews, planning, research, verification.
-Work directly for: trivial ops, small clarifications, single commands.
-Route code to `executor` (use `model=opus` for complex work). Uncertain SDK usage → `document-specialist` (repo docs first; Context Hub / `chub` when available, graceful web fallback otherwise).
-</delegation_rules>
+```
+index.html  →  styles.css  +  script.js       # Landing page (public)
+admin.html  →  admin.css   +  admin.js         # Admin panel (Supabase Auth-gated CRUD)
+supabase.js                                    # Supabase client config (GENERATED — see below)
+schema.sql                                     # Full DB schema & RLS policies
+replace-env.js                                 # Build-time env injector
+verify-animations.mjs                          # Smoke-test runner
+DESIGN_merged.md                               # Authoritative design source
+```
 
-<model_routing>
-`haiku` (quick lookups), `sonnet` (standard), `opus` (architecture, deep analysis).
-Direct writes OK for: `~/.Codex/**`, `.omc/**`, `.Codex/**`, `AGENTS.md`, `AGENTS.md`.
-</model_routing>
+## Key Files
 
-<skills>
-Invoke via `/oh-my-Codex:<name>`. Trigger patterns auto-detect keywords.
-Tier-0 workflows include `autopilot`, `ultrawork`, `ralph`, `team`, and `ralplan`.
-Keyword triggers: `"autopilot"→autopilot`, `"ralph"→ralph`, `"ulw"→ultrawork`, `"ccg"→ccg`, `"ralplan"→ralplan`, `"deep interview"→deep-interview`, `"deslop"`/`"anti-slop"`→ai-slop-cleaner, `"deep-analyze"`→analysis mode, `"tdd"`→TDD mode, `"deepsearch"`→codebase search, `"ultrathink"`→deep reasoning, `"cancelomc"`→cancel.
-Team orchestration is explicit via `/team`.
-Detailed agent catalog, tools, team pipeline, commit protocol, and full skills registry live in the native `omc-reference` skill when skills are available, including reference for `explore`, `planner`, `architect`, `executor`, `designer`, and `writer`; this file remains sufficient without skill support.
-</skills>
+- **`supabase.js`** — `replace-env.js` overwrites `SUPABASE_URL`/`SUPABASE_ANON_KEY` in-place via regex. Do NOT manually edit the injected values; change `.env` then re-run `npm run build`.
+- **`.env`** — Contains Supabase anon credentials (NOT a service-role secret). It's gitignored but present locally. Handle env changes with care.
+- **`DESIGN_merged.md`** — Authoritative design reference. Montserrat font, accent `#3ecf8e`, light/dark mode. The file `design-system/uit-knowledge/MASTER.md` appears stale/alternate — prefer `DESIGN_merged.md` when in doubt.
+- **`styles.css.bak`** — Stale backup, not in use. Delete if cleanup is on the roadmap.
 
-<verification>
-Verify before claiming completion. Size appropriately: small→haiku, standard→sonnet, large/security→opus.
-If verification fails, keep iterating.
-</verification>
+## Database (Supabase)
 
-<execution_protocols>
-Broad requests: explore first, then plan. 2+ independent tasks in parallel. `run_in_background` for builds/tests.
-Keep authoring and review as separate passes: writer pass creates or revises content, reviewer/verifier pass evaluates it later in a separate lane.
-Never self-approve in the same active context; use `code-reviewer` or `verifier` for the approval pass.
-Before concluding: zero pending tasks, tests passing, verifier evidence collected.
-</execution_protocols>
+- **Tables** in `schema.sql`: `videos`, `courses`, `merch`
+- **RLS**: `SELECT` public for all, `ALL` gated to `authenticated` role
+- **Storage buckets**: `courses`, `merch` — public read, authenticated write
 
-<hooks_and_context>
-Hooks inject `<system-reminder>` tags. Key patterns: `hook success: Success` (proceed), `[MAGIC KEYWORD: ...]` (invoke skill), `The boulder never stops` (ralph/ultrawork active).
-Persistence: `<remember>` (7 days), `<remember priority>` (permanent).
-Kill switches: `DISABLE_OMC`, `OMC_SKIP_HOOKS` (comma-separated).
-</hooks_and_context>
+## Commands
 
-<cancellation>
-`/oh-my-Codex:cancel` ends execution modes. Cancel when done+verified or blocked. Don't cancel if work incomplete.
-</cancellation>
+| Command | What it does |
+|---|---|
+| `npm run dev` / `npm start` | `npx -y serve .` (static file server) |
+| `npm run build` | `node replace-env.js` (injects env into `supabase.js`) |
+| `node verify-animations.mjs` | Quick smoke test (file existence, CSS/JS syntax, key class checks) |
 
-<worktree_paths>
-State: `.omc/state/`, `.omc/state/sessions/{sessionId}/`, `.omc/notepad.md`, `.omc/project-memory.json`, `.omc/plans/`, `.omc/research/`, `.omc/logs/`
-</worktree_paths>
+No lint, type-check, or test framework discovered. `verify-animations.mjs` is your best signal for a focused pre-commit check.
 
-## Setup
+## Agent Tooling
 
-Say "setup omc" or run `/oh-my-Codex:omc-setup`.
+`.agent/` contains Antigravity Kit (AI agent tooling), not app source. Do not modify unless the task explicitly targets agent configuration.
+
+## Design Rules
+
+- **Font**: Montserrat (headings), system sans-serif (body)
+- **Accent**: `#3ecf8e` (green)
+- **Mode**: light/dark via `prefers-color-scheme` — UI elements should toggle appropriately
+- **Source of truth**: `DESIGN_merged.md`
 
 <!-- OMC:END -->
