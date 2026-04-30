@@ -101,3 +101,22 @@ ALTER TABLE public.video_registrations ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public Insert Access" ON public.video_registrations FOR INSERT WITH CHECK (true);
 CREATE POLICY "Admin Read Access" ON public.video_registrations FOR SELECT USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin All Access" ON public.video_registrations FOR ALL USING (auth.role() = 'authenticated');
+
+-- 7. MERCH REGISTRATIONS TABLE
+CREATE TABLE IF NOT EXISTS public.merch_registrations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMPTZ DEFAULT now(),
+    full_name TEXT NOT NULL,
+    student_id TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    merch_name TEXT NOT NULL,
+    quantity INTEGER DEFAULT 1,
+    note TEXT,
+    total_price INTEGER
+);
+
+-- Enable RLS for merch_registrations
+ALTER TABLE public.merch_registrations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Insert Access" ON public.merch_registrations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admin Read Access" ON public.merch_registrations FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Admin All Access" ON public.merch_registrations FOR ALL USING (auth.role() = 'authenticated');

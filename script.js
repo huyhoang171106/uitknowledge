@@ -515,7 +515,95 @@ document.addEventListener('click', (e) => {
     } else if (merchBtn) {
         const title = merchBtn.dataset.name;
         const qrUrl = merchBtn.dataset.qr;
-        openPaymentModal(title, qrUrl, 'Mua sản phẩm');
+        const price = merchBtn.dataset.price;
+        openMerchModal(title, qrUrl, price);
+    }
+});
+
+// Merch Modal Functions
+function openMerchModal(name, qr, price) {
+    const modal = document.getElementById('merch-modal');
+    const form = document.getElementById('merch-form');
+    if (!modal || !form) return;
+    
+    form.reset();
+    document.getElementById('merch-item-name').value = name;
+    document.getElementById('merch-item-price').value = price;
+    document.getElementById('merch-item-qr').value = qr;
+    document.getElementById('merch-display-name').textContent = name;
+    
+    modal.style.display = 'flex';
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMerchModal() {
+    const modal = document.getElementById('merch-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+}
+
+document.getElementById('close-merch-modal')?.addEventListener('click', closeMerchModal);
+document.getElementById('merch-modal')?.querySelector('.qr-modal-overlay')?.addEventListener('click', closeMerchModal);
+
+document.getElementById('merch-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submit-merch-btn');
+    if (!submitBtn) return;
+
+    const formData = new FormData(e.target);
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang xử lý...';
+
+    const merchName = formData.get('merch_name');
+    const merchPriceStr = formData.get('merch_price');
+    const merchQr = formData.get('merch_qr');
+    const quantity = parseInt(formData.get('quantity') || '1');
+    const pricePerUnit = Number(String(merchPriceStr).replace(/[^0-9]/g, ''));
+    const totalPrice = pricePerUnit * quantity;
+
+    const data = {
+        full_name: formData.get('full_name'),
+        student_id: formData.get('student_id'),
+        phone: formData.get('phone'),
+        merch_name: merchName,
+        quantity: quantity,
+        note: formData.get('note'),
+        total_price: totalPrice
+    };
+
+    try {
+        // Try to insert into merch_registrations (if table exists)
+        // If it fails, we still proceed to payment to not block the user
+        const { error } = await supabaseClient.from('merch_registrations').insert([data]);
+        if (error) console.warn('Note: merch_registrations table might be missing or RLS error:', error.message);
+        
+        closeMerchModal();
+        openPaymentModal(
+            `Mua Merch: ${merchName} (x${quantity})`, 
+            merchQr || 'assets/images/unnamed.png', 
+            'Thanh toán mua Merch',
+            totalPrice
+        );
+        
+    } catch (err) {
+        console.error('Error during merch registration:', err);
+        // Fallback: still open payment modal
+        closeMerchModal();
+        openPaymentModal(
+            `Mua Merch: ${merchName} (x${quantity})`, 
+            merchQr || 'assets/images/unnamed.png', 
+            'Thanh toán mua Merch',
+            totalPrice
+        );
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Tiếp tục thanh toán';
     }
 });
 
@@ -705,7 +793,8 @@ function renderMerch(merchList) {
                     <span class="merch-price">${escapeHTML(formatVND(merch.price))}</span>
                     <button class="btn btn-primary btn-merch merch-btn" 
                             data-name="${escapeHTML(merch.name)}" 
-                            data-qr="${escapeHTML(merch.payment_qr_url || '')}">Mua ngay</button>
+                            data-qr="${escapeHTML(merch.payment_qr_url || '')}"
+                            data-price="${escapeHTML(merch.price || '')}">Mua ngay</button>
                 </div>
             </div>
         </article>

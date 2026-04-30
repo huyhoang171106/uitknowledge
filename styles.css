@@ -117,7 +117,7 @@ select {
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.12em;
@@ -227,7 +227,7 @@ select {
     border: 1px solid rgba(0, 0, 0, 0.06);
     color: var(--light-text);
     font-weight: 700;
-    font-size: 17px;
+    font-size: 19px;
     object-fit: cover;
 }
 
@@ -239,7 +239,7 @@ select {
 }
 
 .logo-text {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -247,7 +247,7 @@ select {
 
 .logo-meta {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 15px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--light-text-muted);
@@ -268,7 +268,7 @@ select {
     border-radius: var(--radius-pill);
     text-decoration: none;
     color: var(--light-text-secondary);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     transition: color var(--transition), background var(--transition);
 }
@@ -320,21 +320,21 @@ select {
 .btn-small {
     min-height: 44px;
     padding: 0 22px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
 }
 
 .btn-large {
     min-height: 56px;
     padding: 0 28px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
 }
 
 .btn-merch {
     min-height: 40px;
     padding: 0 20px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
 }
 
@@ -449,7 +449,7 @@ select {
     border: 1px solid rgba(62, 207, 142, 0.2);
     background: rgba(62, 207, 142, 0.08);
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -472,7 +472,7 @@ select {
 
 .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(40px, 6.5vw, 84px);
+    font-size: clamp(42px, 6.5vw, 86px);
     line-height: 1.1;
     letter-spacing: -0.05em;
     font-weight: 800;
@@ -495,7 +495,7 @@ select {
 .hero-subtitle {
     max-width: 800px;
     margin: 0 auto 36px;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1.65;
     color: rgba(255, 255, 255, 0.55);
     font-weight: 400;
@@ -566,7 +566,7 @@ select {
 
 .hero-stat-number {
     font-family: var(--font-display);
-    font-size: clamp(28px, 3.5vw, 40px);
+    font-size: clamp(30px, 3.5vw, 42px);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -575,14 +575,14 @@ select {
 
 .hero-stat-plus {
     font-family: var(--font-display);
-    font-size: clamp(18px, 2.2vw, 24px);
+    font-size: clamp(20px, 2.2vw, 26px);
     font-weight: 700;
     color: var(--accent);
     transform: translateY(-2px);
 }
 
 .hero-stat-label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -635,7 +635,7 @@ select {
 .hero-subject-kicker {
     display: block;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -645,7 +645,7 @@ select {
 
 .hero-subject strong {
     display: block;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: rgba(255, 255, 255, 0.95);
@@ -653,7 +653,7 @@ select {
 }
 
 .hero-subject-desc {
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.6);
     font-weight: 400;
@@ -758,8 +758,8 @@ select {
 
 /* === LIGHT INTRO / COURSE / FOOTER === */
 .intro-band {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding: 80px 0;
+    overflow: hidden;
 }
 
 .intro-header {
@@ -768,51 +768,234 @@ select {
     text-align: center;
 }
 
-.intro-features {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px;
-    max-width: 1200px;
+.how-it-works-narrative {
+    position: relative;
+    max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
 }
 
-.intro-feature {
-    padding: 48px 40px;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--light-border);
-    background: var(--light-canvas);
-    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+.narrative-path {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, 
+        transparent, 
+        rgba(62, 207, 142, 0.2) 10%, 
+        rgba(62, 207, 142, 0.2) 90%, 
+        transparent
+    );
+    transform: translateX(-50%);
+    z-index: 0;
 }
 
-.intro-feature:hover {
-    border-color: var(--light-border-strong);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
-    transform: translateY(-4px);
+.narrative-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    z-index: 1;
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.intro-feature-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: rgba(62, 207, 142, 0.08);
-    color: var(--accent-strong);
-    margin-bottom: 24px;
+.narrative-step.reveal {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.intro-feature h3 {
-    font-size: 26px;
+.narrative-step.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.narrative-step .step-content {
+    flex: 1;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+}
+
+.narrative-step.step-reverse .step-content {
+    transform: translateX(30px);
+}
+
+.narrative-step.reveal.visible .step-content {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.narrative-step .step-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(30px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s;
+}
+
+.narrative-step.step-reverse .step-visual {
+    transform: translateX(-30px) scale(0.9);
+}
+
+.narrative-step.reveal.visible .step-visual {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.step-counter {
+    position: absolute;
+    top: -30px;
+    left: -15px;
+    font-family: var(--font-display);
+    font-size: 90px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(62, 207, 142, 0.05);
+    z-index: -1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.step-reverse .step-counter {
+    left: auto;
+    right: -15px;
+}
+
+.step-title {
+    font-size: 30px;
     font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
     color: var(--light-text);
 }
 
-.intro-feature p {
+.step-description {
     font-size: 18px;
     line-height: 1.6;
     color: var(--light-text-secondary);
+    max-width: 400px;
+}
+
+.step-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visual-card {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 32px;
+    display: grid;
+    place-items: center;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: default;
+}
+
+.visual-card:hover {
+    transform: scale(1.02) rotate(2deg);
+}
+
+.glass-premium {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.visual-icon-aura {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: var(--accent);
+    filter: blur(50px);
+    opacity: 0.15;
+    border-radius: 50%;
+    animation: aura-pulse 4s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.2); opacity: 0.25; }
+}
+
+.visual-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--accent-strong);
+    z-index: 2;
+    filter: drop-shadow(0 0 10px rgba(62, 207, 142, 0.3));
+}
+
+.accent-emerald .visual-icon { color: #10b981; }
+.accent-emerald .visual-icon-aura { background: #10b981; }
+
+.accent-purple .visual-icon { color: #8b5cf6; }
+.accent-purple .visual-icon-aura { background: #8b5cf6; }
+
+.visual-accent-line {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    border-radius: 2px;
+    opacity: 0.3;
+}
+
+/* Mobile optimizations for Narrative */
+@media (max-width: 768px) {
+    .how-it-works-narrative {
+        gap: 80px;
+    }
+    
+    .narrative-path {
+        left: 20px;
+        transform: none;
+    }
+    
+    .narrative-step, 
+    .narrative-step.step-reverse {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+        padding-left: 50px;
+    }
+    
+    .step-visual {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .visual-card {
+        width: 240px;
+        height: 240px;
+        border-radius: 30px;
+    }
+    
+    .step-counter {
+        font-size: 80px;
+        top: -30px;
+        left: -10px;
+    }
+    
+    .step-title {
+        font-size: 28px;
+    }
 }
 
 .section-header {
@@ -836,7 +1019,7 @@ select {
     border: 1px solid rgba(62, 207, 142, 0.18);
     color: var(--accent-strong);
     font-family: var(--font-mono);
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 18px;
@@ -850,7 +1033,7 @@ select {
 
 .section-title {
     font-family: var(--font-display);
-    font-size: clamp(38px, 5vw, 56px);
+    font-size: clamp(40px, 5vw, 58px);
     line-height: 1.08;
     letter-spacing: -0.035em;
     font-weight: 700;
@@ -862,7 +1045,7 @@ select {
 
 .section-desc,
 .footer-brand p {
-    font-size: 19px;
+    font-size: 21px;
     line-height: 1.72;
     letter-spacing: -0.01em;
 }
@@ -884,7 +1067,7 @@ select {
 }
 
 .intro-copy p {
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.72;
     letter-spacing: -0.01em;
 }
@@ -987,7 +1170,7 @@ select {
     border: 1px solid var(--dark-border);
     color: var(--dark-text);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .video-info,
@@ -1001,20 +1184,20 @@ select {
 .video-title,
 .course-title,
 .merch-name {
-    font-size: 27px;
+    font-size: 29px;
     line-height: 1.14;
     letter-spacing: -0.04em;
 }
 
 .video-card:not(.featured) .video-title {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .video-desc,
 .merch-desc {
     margin-top: 14px;
     color: var(--dark-text-secondary);
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -1025,7 +1208,7 @@ select {
 .video-meta {
     margin-top: 14px;
     color: var(--dark-text-muted);
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .section-cta {
@@ -1053,7 +1236,7 @@ select {
 .course-card {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     min-height: 580px;
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.06);
@@ -1090,11 +1273,11 @@ select {
 }
 
 .course-image {
-    position: absolute;
-    inset: 0;
-    height: 100%;
+    position: relative;
+    height: 340px;
+    flex-shrink: 0;
     border-bottom: none;
-    z-index: 0;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -1146,7 +1329,7 @@ select {
     background: #111;
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1180,7 +1363,7 @@ select {
 
 .course-content {
     display: flex;
-    flex: none;
+    flex: 1;
     flex-direction: column;
     padding: 32px;
     position: relative;
@@ -1205,7 +1388,7 @@ select {
     border-radius: var(--radius-xs);
     color: var(--light-text-secondary);
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -1222,7 +1405,7 @@ select {
 .course-features {
     margin-top: 16px;
     color: var(--light-text-secondary);
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.6;
 }
 
@@ -1262,14 +1445,14 @@ select {
 }
 
 .course-price {
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 600;
     color: var(--light-text-muted);
     letter-spacing: -0.01em;
 }
 
 .merch-price {
-    font-size: 22px;
+    font-size: 24px;
     line-height: 1;
     letter-spacing: -0.04em;
     font-weight: 700;
@@ -1283,7 +1466,7 @@ select {
 .course-link,
 .video-link {
     gap: 10px;
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
     letter-spacing: -0.01em;
     overflow: hidden;
@@ -1349,7 +1532,7 @@ select {
 .merch-carousel {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     gap: 18px;
@@ -1382,9 +1565,9 @@ select {
     flex: 0 0 100%;
     width: 100%;
     min-width: 100%;
-    min-height: 290px;
+    min-height: 380px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 1.2fr);
     background:
         linear-gradient(90deg, rgba(15, 15, 15, 0.72), rgba(15, 15, 15, 0.92)),
         url('assets/images/merch-card-bg-demo.png') center / cover no-repeat,
@@ -1392,7 +1575,7 @@ select {
 }
 
 .merch-image {
-    min-height: 290px;
+    min-height: 380px;
     min-width: 0;
     display: grid;
     place-items: center;
@@ -1427,13 +1610,13 @@ select {
 }
 
 .merch-placeholder {
-    width: min(300px, 70%);
+    width: min(360px, 80%);
     aspect-ratio: 1 / 1;
     border-radius: var(--radius-sm);
     display: grid;
     place-items: center;
     color: var(--dark-text-secondary);
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
     padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1458,9 +1641,9 @@ select {
 
 .merch-name {
     color: var(--dark-text);
-    font-size: clamp(22px, 3vw, 28px);
+    font-size: clamp(28px, 4vw, 42px);
     max-width: 14ch;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .merch-info {
@@ -1480,7 +1663,7 @@ select {
     display: block;
     margin-bottom: 10px;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 15px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--dark-text-muted);
@@ -1615,7 +1798,7 @@ select {
 
 .footer-logo {
     font-family: var(--font-display);
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 20px;
@@ -1626,7 +1809,7 @@ select {
 }
 
 .footer-description {
-    font-size: 15px;
+    font-size: 17px;
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
     margin-bottom: 24px;
@@ -1659,7 +1842,7 @@ select {
 
 .footer-title {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 24px;
@@ -1675,7 +1858,7 @@ select {
 .footer-links a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 17px;
     transition: color var(--transition);
 }
 
@@ -1695,7 +1878,7 @@ select {
     gap: 12px;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
 }
 
@@ -1724,12 +1907,12 @@ select {
 }
 
 .copyright {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.4);
 }
 
 .credit {
-    font-size: 13px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.35);
 }
 
@@ -1742,12 +1925,17 @@ select {
 /* === REVEAL === */
 .reveal {
     opacity: 0;
+    filter: blur(8px);
     transform: translateY(32px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: 
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), 
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0);
 }
 
@@ -1827,7 +2015,7 @@ select {
     .nav-link {
         border-radius: 12px;
         padding: 14px 16px;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .hero {
@@ -1856,12 +2044,12 @@ select {
     }
 
     .intro-feature h3 {
-        font-size: 22px;
+        font-size: 24px;
         margin-bottom: 10px;
     }
 
     .intro-feature p {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .video-grid {
@@ -1937,18 +2125,18 @@ select {
     }
 
     .merch-name {
-        font-size: clamp(24px, 5vw, 36px);
+        font-size: clamp(26px, 5vw, 38px);
     }
 
     .faq-question {
         min-height: 64px;
         padding: 0 20px;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .faq-answer p {
         padding: 0 20px;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .faq-item.is-open .faq-answer p {
@@ -1973,7 +2161,7 @@ select {
 
     .btn-large {
         min-height: 52px; /* Touch-friendly */
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .hero {
@@ -1982,13 +2170,13 @@ select {
     }
 
     .hero-title {
-        font-size: clamp(28px, 8vw, 40px);
+        font-size: clamp(30px, 8vw, 42px);
         white-space: normal;
         text-wrap: balance;
     }
 
     .hero-subtitle {
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 28px;
     }
 
@@ -2021,7 +2209,7 @@ select {
 /* --- Small Phone (≤ 480px) --- */
 @media (max-width: 480px) {
     html {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .section {
@@ -2048,11 +2236,11 @@ select {
     }
 
     .intro-feature h3 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .intro-feature p {
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .hero-subjects {
@@ -2066,19 +2254,19 @@ select {
     }
 
     .hero-stat-number {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .hero-stat-plus {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .hero-stat-label {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .logo-text {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .footer-links-wrap {
@@ -2087,11 +2275,11 @@ select {
     }
 
     .section-title {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .hero-badge {
-        font-size: 12px;
+        font-size: 14px;
         padding: 4px 12px;
     }
 
@@ -2114,19 +2302,19 @@ select {
 
     .video-title,
     .course-title {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .video-card:not(.featured) .video-title {
-        font-size: 17px;
+        font-size: 19px;
     }
 
     .merch-name {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .merch-desc {
-        font-size: 15px;
+        font-size: 17px;
         margin-top: 10px;
     }
 
@@ -2135,13 +2323,13 @@ select {
     }
 
     .course-desc {
-        font-size: 15px;
+        font-size: 17px;
         margin-top: 10px;
     }
 
     .course-price,
     .merch-price {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .qr-modal-container {
@@ -2160,19 +2348,19 @@ select {
     }
 
     .qr-instructions {
-        font-size: 15px;
+        font-size: 17px;
         padding: 12px;
     }
 
     .faq-question {
         min-height: 56px;
         padding: 0 16px;
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .faq-answer p {
         padding: 0 16px;
-        font-size: 15px;
+        font-size: 17px;
     }
 
     .faq-item.is-open .faq-answer p {
@@ -2180,7 +2368,7 @@ select {
     }
 
     .footer-logo {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .footer-socials {
@@ -2206,26 +2394,26 @@ select {
     }
 
     .hero-title {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .hero-subtitle {
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 20px;
     }
 
     .hero-badge {
-        font-size: 11px;
+        font-size: 13px;
         padding: 3px 10px;
         margin-bottom: 20px;
     }
 
     .hero-stat-number {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .hero-stat-plus {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .hero-stats-bar {
@@ -2240,7 +2428,7 @@ select {
     .btn-large {
         min-height: 46px;
         padding: 0 14px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .hero-subject {
@@ -2249,11 +2437,11 @@ select {
     }
 
     .hero-subject strong {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .hero-subject-desc {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .hero-subject-icon {
@@ -2266,11 +2454,11 @@ select {
     }
 
     .section-title {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .section-desc {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .header-actions .btn-primary {
@@ -2291,7 +2479,7 @@ select {
     }
 
     .video-duration {
-        font-size: 12px;
+        font-size: 14px;
         min-height: 24px;
         padding: 0 8px;
     }
@@ -2307,7 +2495,7 @@ select {
     }
 
     .merch-name {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .merch-card {
@@ -2323,7 +2511,7 @@ select {
     }
 
     .copyright, .credit {
-        font-size: 12px;
+        font-size: 14px;
     }
 }
 
@@ -2466,7 +2654,7 @@ select {
     background: transparent;
     text-align: left;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
     color: var(--light-text);
 }
@@ -2481,7 +2669,7 @@ select {
     min-height: 0;
     overflow: hidden;
     padding: 0 24px;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.6;
     color: var(--light-text-secondary);
 }
@@ -2571,7 +2759,7 @@ select {
 }
 
 .qr-modal-header h3 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.02em;
 }
@@ -2598,7 +2786,7 @@ select {
 
 #payment-course-title {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
     color: var(--accent-strong);
 }
@@ -2646,7 +2834,7 @@ select {
 }
 
 .form-group label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--light-text);
 }
@@ -2663,7 +2851,7 @@ select {
     border-radius: var(--radius-sm);
     background: #fff;
     font-family: inherit;
-    font-size: 15px;
+    font-size: 17px;
     transition: border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -2688,7 +2876,7 @@ select {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 14px;
     border: 1px solid var(--light-border);
     border-radius: var(--radius-pill);
@@ -2750,7 +2938,7 @@ select {
     background: var(--light-surface);
     padding: 16px;
     border-radius: var(--radius-sm);
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .qr-instructions p {
@@ -2803,7 +2991,7 @@ select {
 /* Kỹ thuật Scaling giúp giao diện lấp đầy và sang trọng hơn trên màn hình lớn (27" trở lên) */
 @media (min-width: 1440px) {
     html {
-        font-size: 17px;
+        font-size: 19px;
     }
 
     :root {
@@ -2813,7 +3001,7 @@ select {
 
 @media (min-width: 1920px) {
     html {
-        font-size: 18px; /* Tăng tỉ lệ hệ thống lên ~12% */
+        font-size: 20px; /* Tăng tỉ lệ hệ thống lên ~12% */
     }
 
     :root {
@@ -2823,7 +3011,7 @@ select {
 
 @media (min-width: 2560px) {
     html {
-        font-size: 20px; /* Tăng tỉ lệ hệ thống lên ~25% cho màn hình 4K */
+        font-size: 22px; /* Tăng tỉ lệ hệ thống lên ~25% cho màn hình 4K */
     }
 
     :root {
@@ -2862,14 +3050,14 @@ select {
 }
 
 .course-title {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 12px;
     line-height: 1.3;
 }
 
 .course-desc {
     margin-bottom: 24px;
-    font-size: 15px;
+    font-size: 17px;
     color: var(--light-text-muted);
     line-height: 1.6;
     max-width: 280px;
@@ -2887,7 +3075,7 @@ select {
 }
 
 .course-price {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -2926,7 +3114,7 @@ select {
 }
 
 .course-icon {
-    font-size: 86px;
+    font-size: 88px;
     filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
     z-index: 1;
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
