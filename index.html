@@ -742,60 +742,60 @@
                     <form id="registration-form" class="registration-form">
                         <div class="form-grid-2col">
                             <div class="form-group">
-                                <label for="reg-full-name">Họ và tên <span class="required">*</span></label>
+                                <label for="reg-full-name">Bạn vui lòng điền Họ và tên đầy đủ <span class="required">*</span></label>
                                 <input type="text" id="reg-full-name" name="full_name" placeholder="Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
-                                <label for="reg-student-id">MSSV / Email <span class="required">*</span></label>
-                                <input type="text" id="reg-student-id" name="student_id_email" placeholder="2152xxxx" required>
+                                <label for="reg-student-id">Mã số sinh viên (MSSV) của bạn <span class="required">*</span></label>
+                                <input type="text" id="reg-student-id" name="student_id_email" placeholder="2552xxxx" required>
                             </div>
                         </div>
 
                         <div class="form-grid-2col">
                             <div class="form-group">
-                                <label>Có mail Teams chưa? <span class="required">*</span></label>
+                                <label>Bạn đã có tài khoản Email Teams chưa? <span class="required">*</span></label>
                                 <div class="radio-group">
                                     <label class="radio-label">
                                         <input type="radio" name="has_teams_email" value="Rồi" required>
-                                        <span>Rồi</span>
+                                        <span>Dạ rồi</span>
                                     </label>
                                     <label class="radio-label">
                                         <input type="radio" name="has_teams_email" value="Chưa">
-                                        <span>Chưa</span>
+                                        <span>Dạ chưa</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="reg-teams-email">Email Teams <span class="required">*</span></label>
-                                <input type="text" id="reg-teams-email" name="teams_email" placeholder="2152xxxx@ms.uit.edu.vn" required>
+                                <label for="reg-teams-email">Địa chỉ Email Teams sinh viên của bạn <span class="required">*</span></label>
+                                <input type="text" id="reg-teams-email" name="teams_email" placeholder="2552xxxx@ms.uit.edu.vn" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Môn học muốn đăng ký <span class="required">*</span></label>
+                            <label>Vui lòng chọn môn học bạn muốn đăng ký <span class="required">*</span></label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="courses" value="OOP">
-                                    <span>OOP</span>
+                                    <span>Lập trình hướng đối tượng</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="courses" value="DSA">
-                                    <span>DSA</span>
+                                    <span>Cấu trúc dữ liệu & Giải thuật</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="courses" value="Xác Suất Thống Kê">
-                                    <span>Xác Suất Thống Kê</span>
+                                    <span>Xác suất thống kê</span>
                                 </label>
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="courses" value="Cấu Trúc Rời Rạc">
-                                    <span>Cấu Trúc Rời Rạc</span>
+                                    <span>Cấu trúc rời rạc</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-grid-2col">
                             <div class="form-group">
-                                <label for="reg-goal">Mục tiêu <span class="required">*</span></label>
+                                <label for="reg-goal">Mục tiêu học tập của bạn <span class="required">*</span></label>
                                 <select id="reg-goal" name="goal" required>
                                     <option value="" disabled selected>Chọn mục tiêu</option>
                                     <option value="Qua môn">Qua môn</option>
@@ -805,27 +805,27 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Rảnh cuối tuần chứ? <span class="required">*</span></label>
+                                <label>Bạn có thể học vào cuối tuần chứ? <span class="required">*</span></label>
                                 <div class="radio-group">
                                     <label class="radio-label">
                                         <input type="radio" name="weekend_available" value="Có" required>
-                                        <span>Có</span>
+                                        <span>Dạ có</span>
                                     </label>
                                     <label class="radio-label">
                                         <input type="radio" name="weekend_available" value="Không">
-                                        <span>Không</span>
+                                        <span>Dạ không</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="reg-difficulties">Khó khăn đang gặp phải</label>
-                            <textarea id="reg-difficulties" name="difficulties" rows="2" placeholder="Chia sẻ thêm về khó khăn của bạn..."></textarea>
+                            <label for="reg-difficulties">Khó khăn bạn đang gặp phải là gì?</label>
+                            <textarea id="reg-difficulties" name="difficulties" rows="2" placeholder="Dạ, em đang gặp khó khăn ở phần..."></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>Thời gian có thể học <span class="required">*</span></label>
+                            <label>Thời gian bạn có thể tham gia học <span class="required">*</span></label>
                             <div class="checkbox-grid">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="time_slots" value="13h00 - 14h30">
@@ -844,7 +844,7 @@
 
                         <div class="registration-footer">
                             <button type="submit" class="btn btn-primary btn-full" id="submit-registration-btn">
-                                Gửi đăng ký
+                                Gửi thông tin đăng ký
                             </button>
                         </div>
                     </form>
@@ -869,43 +869,43 @@
                     <form id="video-form" class="registration-form">
                         <div class="form-grid-2col">
                             <div class="form-group">
-                                <label for="video-full-name">Họ và tên của bạn <span class="required">*</span></label>
+                                <label for="video-full-name">Bạn vui lòng điền Họ và tên đầy đủ <span class="required">*</span></label>
                                 <input type="text" id="video-full-name" name="full_name" placeholder="Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
-                                <label for="video-student-id">MSSV <span class="required">*</span></label>
-                                <input type="text" id="video-student-id" name="student_id" placeholder="2152xxxx" required>
+                                <label for="video-student-id">Mã số sinh viên (MSSV) của bạn <span class="required">*</span></label>
+                                <input type="text" id="video-student-id" name="student_id" placeholder="2552xxxx" required>
                             </div>
                         </div>
 
                         <div class="form-grid-2col">
                             <div class="form-group">
-                                <label>Có mail Teams chưa? <span class="required">*</span></label>
+                                <label>Bạn đã có tài khoản Email Teams chưa? <span class="required">*</span></label>
                                 <div class="radio-group">
                                     <label class="radio-label">
                                         <input type="radio" name="has_teams_email" value="Rồi" required>
-                                        <span>Rồi</span>
+                                        <span>Dạ rồi</span>
                                     </label>
                                     <label class="radio-label">
                                         <input type="radio" name="has_teams_email" value="Chưa">
-                                        <span>Chưa</span>
+                                        <span>Dạ chưa</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="video-teams-email">Email Teams sinh viên <span class="required">*</span></label>
-                                <input type="text" id="video-teams-email" name="teams_email" placeholder="2152xxxx@ms.uit.edu.vn" required>
+                                <label for="video-teams-email">Địa chỉ Email Teams sinh viên của bạn <span class="required">*</span></label>
+                                <input type="text" id="video-teams-email" name="teams_email" placeholder="2552xxxx@ms.uit.edu.vn" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Môn học muốn xem video <span class="required">*</span></label>
+                            <label>Bạn vui lòng chọn các môn học muốn xem video <span class="required">*</span></label>
                             <div class="checkbox-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-                                <label class="checkbox-label"><input type="checkbox" name="courses" value="OOP"><span>OOP</span></label>
-                                <label class="checkbox-label"><input type="checkbox" name="courses" value="DSA"><span>DSA</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="OOP"><span>Lập trình hướng đối tượng</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="DSA"><span>Cấu trúc dữ liệu & Giải thuật</span></label>
                                 <label class="checkbox-label"><input type="checkbox" name="courses" value="XSTK"><span>Xác suất thống kê</span></label>
                                 <label class="checkbox-label"><input type="checkbox" name="courses" value="CTRR"><span>Cấu trúc rời rạc</span></label>
-                                <label class="checkbox-label"><input type="checkbox" name="courses" value="NM MMT"><span>Mạng máy tính</span></label>
+                                <label class="checkbox-label"><input type="checkbox" name="courses" value="NM MMT"><span>Nhập môn Mạng máy tính</span></label>
                                 <label class="checkbox-label"><input type="checkbox" name="courses" value="TCCS MT2"><span>Kiến trúc máy tính 2</span></label>
                                 <label class="checkbox-label"><input type="checkbox" name="courses" value="CSDL"><span>Cơ sở dữ liệu</span></label>
                                 <label class="checkbox-label"><input type="checkbox" name="courses" value="HĐH"><span>Hệ điều hành</span></label>
@@ -914,7 +914,7 @@
 
                         <div class="registration-footer">
                             <button type="submit" class="btn btn-primary btn-full" id="submit-video-btn">
-                                Gửi đăng ký
+                                Gửi thông tin đăng ký
                             </button>
                         </div>
                     </form>
