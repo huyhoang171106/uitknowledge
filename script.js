@@ -17,6 +17,30 @@ function escapeHTML(str) {
         .replace(/'/g, '&#039;');
 }
 
+// Adaptive header: detect dark/light section under header
+function updateHeaderTheme() {
+    const headerRect = header.getBoundingClientRect();
+    const headerMid = headerRect.top + headerRect.height / 2;
+    
+    // Find which section the header midpoint overlaps
+    const allSections = document.querySelectorAll('section, footer');
+    let onDark = false;
+    
+    for (const section of allSections) {
+        const rect = section.getBoundingClientRect();
+        if (headerMid >= rect.top && headerMid < rect.bottom) {
+            // Check if this section has a dark background
+            const isDarkSection = section.classList.contains('section-dark') 
+                || section.classList.contains('hero') 
+                || section.classList.contains('footer-dark');
+            onDark = isDarkSection;
+            break;
+        }
+    }
+    
+    header.classList.toggle('header-on-dark', onDark);
+}
+
 window.addEventListener('scroll', () => {
     // Scroll progress for parallax
     const scrolled = window.scrollY;
@@ -29,7 +53,11 @@ window.addEventListener('scroll', () => {
     }
 
     updateActiveNav();
+    updateHeaderTheme();
 });
+
+// Initial call
+updateHeaderTheme();
 
 menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('active');
