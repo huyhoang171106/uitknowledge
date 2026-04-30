@@ -20,15 +20,16 @@ function escapeHTML(str) {
 // Adaptive header: detect dark/light section under header
 function updateHeaderTheme() {
     const headerRect = header.getBoundingClientRect();
-    const headerMid = headerRect.top + headerRect.height / 2;
+    // Using bottom of header for a more responsive feel as you scroll down
+    const triggerPoint = headerRect.bottom - 8;
     
-    // Find which section the header midpoint overlaps
+    // Find which section the header bottom overlaps
     const allSections = document.querySelectorAll('section, footer');
     let onDark = false;
     
     for (const section of allSections) {
         const rect = section.getBoundingClientRect();
-        if (headerMid >= rect.top && headerMid < rect.bottom) {
+        if (triggerPoint >= rect.top && triggerPoint < rect.bottom) {
             // Check if this section has a dark background
             const isDarkSection = section.classList.contains('section-dark') 
                 || section.classList.contains('hero') 
@@ -46,7 +47,11 @@ window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     document.documentElement.style.setProperty('--scroll-y', `${scrolled}px`);
 
-    if (window.scrollY > 24) {
+    // Change to scrolled state exactly when leaving the hero section
+    const hero = document.getElementById('gioi-thieu');
+    const heroBottom = hero ? hero.offsetHeight : 0;
+    
+    if (window.scrollY > (heroBottom - header.offsetHeight)) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
@@ -72,20 +77,38 @@ navLinks.forEach(link => {
 });
 
 function updateActiveNav() {
-    const scrollPos = window.scrollY + header.offsetHeight + 80;
+    const triggerLine = header.getBoundingClientRect().bottom + 12;
 
-    sections.forEach(section => {
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        const id = section.getAttribute('id');
+    const triggerMap = [
+        { navId: 'gioi-thieu', el: document.getElementById('gioi-thieu') },
+        { navId: 'video', el: document.getElementById('video') },
+        { navId: 'khoa-hoc', el: findSectionTagByText('Khóa học theo từng môn') },
+        { navId: 'merch', el: findSectionTagByText('Merch cho cộng đồng UIT Knowledge') },
+        { navId: 'lien-he', el: findSectionTagByText('Giải đáp thắc mắc') },
+    ].filter(entry => entry.el);
 
-        if (scrollPos >= top && scrollPos < bottom) {
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.dataset.section === id);
-            });
+    let activeId = 'gioi-thieu';
+    for (const entry of triggerMap) {
+        if (entry.el.getBoundingClientRect().top <= triggerLine) {
+            activeId = entry.navId;
+        } else {
+            break;
         }
+    }
+
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === activeId);
     });
 }
+
+function findSectionTagByText(text) {
+    const normalize = value => value.replace(/\s+/g, ' ').trim();
+    for (const el of document.querySelectorAll('.section-tag')) {
+        if (normalize(el.textContent) === text) return el;
+    }
+    return null;
+}
+
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -291,14 +314,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const href = anchor.getAttribute('href');
         if (!href || href === '#') return;
 
-        const target = document.querySelector(href);
+        const target = getNavScrollTarget(anchor) || document.querySelector(href);
         if (!target) return;
 
         event.preventDefault();
-        const offset = target.offsetTop - header.offsetHeight - 16;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY;
+        const offset = targetTop - header.getBoundingClientRect().height - 16;
         window.scrollTo({ top: offset, behavior: 'smooth' });
     });
 });
+
+function getNavScrollTarget(anchor) {
+    if (!anchor.classList.contains('nav-link')) return null;
+
+    const navTargets = {
+        'khoa-hoc': 'Khóa học theo từng môn',
+        merch: 'Merch cho cộng đồng UIT Knowledge',
+        'lien-he': 'Giải đáp thắc mắc',
+    };
+
+    const tagText = navTargets[anchor.dataset.section];
+    return tagText ? findSectionTagByText(tagText) : null;
+}
 
 // Initial merch buttons are handled by delegation after dynamic load
 
