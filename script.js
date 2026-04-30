@@ -307,8 +307,13 @@ function closePaymentModal() {
 
 closePaymentModalBtn?.addEventListener('click', closePaymentModal);
 paymentModal?.querySelector('.qr-modal-overlay')?.addEventListener('click', closePaymentModal);
-confirmPaymentBtn?.addEventListener('click', () => {
-    window.open('https://www.facebook.com/GenCanyon', '_blank');
+confirmPaymentBtn?.addEventListener('click', async () => {
+    try {
+        const { data } = await supabaseClient.from('settings').select('value').eq('key', 'facebook_contact_url').single();
+        window.open(data?.value || 'https://www.facebook.com/GenCanyon', '_blank');
+    } catch (e) {
+        window.open('https://www.facebook.com/GenCanyon', '_blank');
+    }
     closePaymentModal();
 });
 
@@ -625,8 +630,50 @@ async function fetchDynamicContent() {
         const { data: merch } = await supabaseClient.from('merch').select('*').order('created_at', { ascending: false });
         renderMerch(merch || []);
 
+        // Fetch Settings (Social Links, etc.)
+        fetchSettings();
+
     } catch (err) {
         console.error('Error fetching dynamic content:', err);
+    }
+}
+
+async function fetchSettings() {
+    try {
+        const { data: settings } = await supabaseClient.from('settings').select('*');
+        if (!settings) return;
+
+        const config = {};
+        settings.forEach(s => config[s.key] = s.value);
+
+        // Update Social Icons in Footer
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            const label = icon.getAttribute('aria-label')?.toLowerCase();
+            if (label === 'youtube' && config.youtube_url) icon.href = config.youtube_url;
+            if (label === 'facebook' && config.facebook_url) icon.href = config.facebook_url;
+            if (label === 'discord' && config.discord_url) icon.href = config.discord_url;
+        });
+
+        // Update Contact Buttons
+        const fbContactBtn = document.getElementById('facebook-contact-btn');
+        if (fbContactBtn && config.facebook_contact_url) {
+            fbContactBtn.onclick = (e) => {
+                e.preventDefault();
+                window.open(config.facebook_contact_url, '_blank');
+            };
+        }
+
+        // Update Email Links
+        if (config.email_contact) {
+            document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+                link.href = `mailto:${config.email_contact}`;
+                // Also update text if it's the specific footer email
+                if (link.innerText.includes('@')) link.innerText = config.email_contact;
+            });
+        }
+
+    } catch (err) {
+        console.warn('Error fetching settings:', err);
     }
 }
 

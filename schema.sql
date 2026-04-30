@@ -120,3 +120,24 @@ ALTER TABLE public.merch_registrations ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public Insert Access" ON public.merch_registrations FOR INSERT WITH CHECK (true);
 CREATE POLICY "Admin Read Access" ON public.merch_registrations FOR SELECT USING (auth.role() = 'authenticated');
 CREATE POLICY "Admin All Access" ON public.merch_registrations FOR ALL USING (auth.role() = 'authenticated');
+
+-- 8. SETTINGS TABLE (Global Configuration)
+CREATE TABLE IF NOT EXISTS public.settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Enable RLS for settings
+ALTER TABLE public.settings ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public Read Access" ON public.settings FOR SELECT USING (true);
+CREATE POLICY "Admin All Access" ON public.settings FOR ALL USING (auth.role() = 'authenticated');
+
+-- Initial Social Links
+INSERT INTO public.settings (key, value) VALUES 
+('youtube_url', 'https://www.youtube.com/@UIT_Knowledge'),
+('facebook_url', 'https://facebook.com'),
+('discord_url', 'https://discord.gg/uitknowledge'),
+('facebook_contact_url', 'https://www.facebook.com/GenCanyon'),
+('email_contact', 'contact@uitknowledge.vn')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;

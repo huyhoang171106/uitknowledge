@@ -95,10 +95,13 @@ async function loadData() {
         </div>
     `;
 
-    const { data, error } = await supabaseClient
-        .from(currentTab)
-        .select('*')
-        .order('created_at', { ascending: false });
+    let query = supabaseClient.from(currentTab).select('*');
+    
+    if (currentTab !== 'settings') {
+        query = query.order('created_at', { ascending: false });
+    }
+
+    const { data, error } = await query;
 
     if (error) {
         contentArea.innerHTML = `<div class="error-message">Lỗi: ${error.message}</div>`;
@@ -106,7 +109,7 @@ async function loadData() {
     }
 
     // Toggle Add button based on tab
-    if (currentTab.includes('registrations')) {
+    if (currentTab.includes('registrations') || currentTab === 'settings') {
         addBtn.style.display = 'none';
     } else {
         addBtn.style.display = 'flex';
@@ -128,15 +131,18 @@ function renderItems(items) {
     }
 
     contentArea.innerHTML = items.map(item => {
-        const title = item.full_name || item.title || item.name;
-        const subtext = item.student_id || item.student_id_email || item.video_id || item.price || item.id.substring(0, 8);
-        const meta = item.courses ? item.courses.join(', ') : (item.image_url ? 'IMAGE_SYNCED' : escapeHTML(item.placeholder_class || 'UIT_KNOWLEDGE_CORE'));
+        const title = item.key || item.full_name || item.title || item.name;
+        const subtext = item.value || item.student_id || item.student_id_email || item.video_id || item.price || item.id.substring(0, 8);
+        const meta = item.updated_at ? `Cập nhật: ${new Date(item.updated_at).toLocaleDateString('vi-VN')}` : (item.courses ? item.courses.join(', ') : (item.image_url ? 'IMAGE_SYNCED' : escapeHTML(item.placeholder_class || 'UIT_KNOWLEDGE_CORE')));
         
         const isReg = currentTab.includes('registrations');
-        const regBadge = isReg ? `<span class="registration-badge">${currentTab === 'course_registrations' ? 'MENTOR' : 'VIDEO'}</span>` : '';
+        const isSetting = currentTab === 'settings';
+        const regBadge = isReg ? `<span class="registration-badge">${currentTab === 'course_registrations' ? 'MENTOR' : 'VIDEO'}</span>` : (isSetting ? `<span class="registration-badge" style="background: rgba(255, 255, 255, 0.1); border-color: var(--border);">CONFIG</span>` : '');
+        
+        const editId = item.id || item.key;
 
         return `
-            <div class="admin-item-card" data-id="${item.id}">
+            <div class="admin-item-card" data-id="${editId}">
                 <div class="item-info">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
                         ${regBadge}
@@ -149,14 +155,15 @@ function renderItems(items) {
                     </div>
                 </div>
                 <div class="item-actions">
-                    <button class="btn btn-secondary btn-small" onclick="openEditModal('${item.id}')">
+                    <button class="btn btn-secondary btn-small" onclick="openEditModal('${editId}')">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                         ${isReg ? 'Chi tiết' : 'Sửa'}
                     </button>
-                    <button class="btn btn-secondary btn-small" onclick="deleteItem('${item.id}')" style="color: #ff4b4b; border-color: rgba(255, 75, 75, 0.2);">
+                    ${!isSetting ? `
+                    <button class="btn btn-secondary btn-small" onclick="deleteItem('${editId}')" style="color: #ff4b4b; border-color: rgba(255, 75, 75, 0.2);">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                         Xóa
-                    </button>
+                    </button>` : ''}
                 </div>
             </div>
         `;
@@ -183,11 +190,14 @@ function openAddModal() {
 }
 
 async function openEditModal(id) {
-    const { data, error } = await supabaseClient
-        .from(currentTab)
-        .select('*')
-        .eq('id', id)
-        .single();
+    let query = supabaseClient.from(currentTab).select('*');
+    if (currentTab === 'settings') {
+        query = query.eq('key', id);
+    } else {
+        query = query.eq('id', id);
+    }
+    
+    const { data, error } = await query.single();
 
     if (error) return alert(error.message);
 
@@ -408,6 +418,18 @@ function renderFields(data = {}) {
                 </div>
             </div>
         `;
+    } else if (currentTab === 'settings') {
+        fields = `
+            <div class="form-group">
+                <label>Mã thiết lập (Key)</label>
+                <input type="text" name="key" value="${data.key || ''}" readonly style="opacity: 0.7;">
+            </div>
+            <div class="form-group">
+                <label>Giá trị (Value)</label>
+                <input type="text" name="value" value="${data.value || ''}" required placeholder="Ví dụ: https://facebook.com/GenCanyon">
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">Lưu ý: Bạn chỉ có thể sửa giá trị, mã thiết lập là cố định để hệ thống hoạt động chính xác.</p>
+        `;
     }
 
     dynamicFields.innerHTML = fields;
@@ -425,6 +447,7 @@ itemForm.addEventListener('submit', async (e) => {
         'videos': ['video_id', 'title', 'description', 'duration', 'is_featured'],
         'courses': ['title', 'description', 'price', 'registration_link', 'image_class', 'category', 'is_hot', 'payment_qr_url'],
         'merch': ['name', 'description', 'price', 'placeholder_class', 'payment_qr_url'],
+        'settings': ['value'],
         'course_registrations': [] // Read-only
     };
 
@@ -534,7 +557,11 @@ itemForm.addEventListener('submit', async (e) => {
 
     let result;
     if (currentItem) {
-        result = await supabaseClient.from(currentTab).update(payload).eq('id', currentItem.id);
+        if (currentTab === 'settings') {
+            result = await supabaseClient.from(currentTab).update(payload).eq('key', currentItem.key);
+        } else {
+            result = await supabaseClient.from(currentTab).update(payload).eq('id', currentItem.id);
+        }
     } else {
         result = await supabaseClient.from(currentTab).insert([payload]);
     }

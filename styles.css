@@ -49,6 +49,7 @@ html {
 }
 
 body {
+    zoom: 0.9;
     font-family: var(--font-body);
     background: var(--light-canvas);
     color: var(--light-text);
@@ -1776,7 +1777,7 @@ select {
     background: #0d1117;
     color: var(--dark-text);
     overflow: hidden;
-    padding: 80px 0 40px;
+    padding: 60px 0 40px;
 }
 
 .footer-shell {
@@ -1787,8 +1788,8 @@ select {
 .footer-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 60px;
+    gap: 40px;
+    margin-bottom: 40px;
 }
 
 .footer-col {
@@ -1798,10 +1799,10 @@ select {
 
 .footer-logo {
     font-family: var(--font-display);
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .footer-logo .logo-accent {
@@ -1809,10 +1810,10 @@ select {
 }
 
 .footer-description {
-    font-size: 17px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.6;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     max-width: 320px;
 }
 
@@ -1842,23 +1843,23 @@ select {
 
 .footer-title {
     font-family: var(--font-display);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .footer-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
 .footer-links a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 17px;
+    font-size: 15px;
     transition: color var(--transition);
 }
 
@@ -1869,7 +1870,7 @@ select {
 .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .contact-item {
@@ -1878,7 +1879,7 @@ select {
     gap: 12px;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
 }
 
@@ -1907,12 +1908,12 @@ select {
 }
 
 .copyright {
-    font-size: 16px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.4);
 }
 
 .credit {
-    font-size: 15px;
+    font-size: 13px;
     color: rgba(255, 255, 255, 0.35);
 }
 
