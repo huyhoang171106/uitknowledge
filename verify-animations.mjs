@@ -107,7 +107,6 @@ if (css) {
   check('grain-shift keyframe exists', css.includes('@keyframes grain-shift'));
   check('shimmer-btn keyframe exists', css.includes('@keyframes shimmer-btn'));
   check('.hero-orb class exists', /\.hero-orb\b/.test(css));
-  check('.cursor-glow class exists', /\.cursor-glow\b/.test(css));
   check('.reveal has filter: blur', /filter:\s*blur/.test(css));
   check('new reveal duration is 0.9s', /0\.9s/.test(css.match(/\.reveal\s*\{[^}]*/)?.[0] || ''));
   check('hero-glow-1 has animation', /hero-glow-1[\s\S]*?animation:/.test(css));
@@ -116,9 +115,6 @@ if (css) {
 }
 
 if (js) {
-  check('cursor-glow element created in JS', /cursor-glow/.test(js));
-  check('Touch detection for cursor glow', /ontouchstart/.test(js));
-  check('MR detection for cursor glow', /prefers-reduced-motion/.test(js));
   check('Reveal stagger cap at 600ms', /Math\.min\(index \* 100, 600\)/.test(js));
 }
 

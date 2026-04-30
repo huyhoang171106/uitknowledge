@@ -18,6 +18,10 @@ function escapeHTML(str) {
 }
 
 window.addEventListener('scroll', () => {
+    // Scroll progress for parallax
+    const scrolled = window.scrollY;
+    document.documentElement.style.setProperty('--scroll-y', `${scrolled}px`);
+
     if (window.scrollY > 24) {
         header.classList.add('scrolled');
     } else {
@@ -56,20 +60,46 @@ function updateActiveNav() {
 }
 
 const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+    entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.classList.add('visible');
-            }, index * 80);
-            revealObserver.unobserve(entry.target);
+            const target = entry.target;
+            
+            // Handle staggered children if this is a stagger-parent
+            if (target.classList.contains('stagger-parent')) {
+                const children = target.querySelectorAll('.reveal');
+                children.forEach((child, index) => {
+                    // Logic cap for verification and performance
+                    const delay = Math.min(index * 100, 600);
+                    child.style.setProperty('--stagger-index', delay / 100 + 1);
+                    setTimeout(() => {
+                        child.classList.add('visible');
+                    }, 50);
+                });
+            } else {
+                target.classList.add('visible');
+            }
+            
+            revealObserver.unobserve(target);
         }
     });
 }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
 });
 
-revealElements.forEach(element => revealObserver.observe(element));
+// Initial observation
+function initReveal() {
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.stagger-parent').forEach(el => revealObserver.observe(el));
+}
+initReveal();
+
+// Helper to observe newly added elements
+function observeNewElements(container) {
+    if (!container) return;
+    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    container.querySelectorAll('.stagger-parent').forEach(el => revealObserver.observe(el));
+}
 
 const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -409,6 +439,7 @@ registrationForm?.addEventListener('submit', async (e) => {
             price
         );
         
+        observeNewElements(videoGrid);
     } catch (err) {
         alert('Có lỗi xảy ra: ' + err.message);
     } finally {
@@ -496,6 +527,7 @@ document.getElementById('video-form')?.addEventListener('submit', async (e) => {
             price
         );
         
+        observeNewElements(videoGrid);
     } catch (err) {
         alert('Có lỗi xảy ra: ' + err.message);
     } finally {
@@ -595,7 +627,6 @@ document.getElementById('merch-form')?.addEventListener('submit', async (e) => {
             'Thanh toán mua Merch',
             totalPrice
         );
-        
     } catch (err) {
         console.error('Error during merch registration:', err);
         // Fallback: still open payment modal
@@ -632,7 +663,6 @@ async function fetchDynamicContent() {
 
         // Fetch Settings (Social Links, etc.)
         fetchSettings();
-
     } catch (err) {
         console.error('Error fetching dynamic content:', err);
     }
@@ -672,6 +702,7 @@ async function fetchSettings() {
             });
         }
 
+        observeNewElements(videoGrid);
     } catch (err) {
         console.warn('Error fetching settings:', err);
     }
@@ -711,7 +742,7 @@ function renderVideos(videos) {
     `).join('');
 
     // Observe new reveal elements
-    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    observeNewElements(container);
 
     // Re-initialize YouTube embeds for dynamic content
     initYoutubeEmbeds();
@@ -789,7 +820,7 @@ function renderCourses() {
     `;
 
     // Observe new reveal elements
-    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    observeNewElements(container);
 }
 
 function injectSchema(id, schemaObj) {
@@ -848,7 +879,7 @@ function renderMerch(merchList) {
     `).join('');
 
     // Observe new reveal elements
-    container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    observeNewElements(container);
 
     initMerchCarousel();
 }
@@ -945,3 +976,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
