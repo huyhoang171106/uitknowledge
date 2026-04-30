@@ -106,7 +106,7 @@ async function loadData() {
     }
 
     // Toggle Add button based on tab
-    if (currentTab === 'course_registrations') {
+    if (currentTab.includes('registrations')) {
         addBtn.style.display = 'none';
     } else {
         addBtn.style.display = 'flex';
@@ -128,24 +128,30 @@ function renderItems(items) {
     }
 
     contentArea.innerHTML = items.map(item => {
-        const title = item.title || item.name || item.full_name;
-        const subtext = item.video_id || item.price || item.student_id_email || item.id.substring(0, 8);
+        const title = item.full_name || item.title || item.name;
+        const subtext = item.student_id || item.student_id_email || item.video_id || item.price || item.id.substring(0, 8);
         const meta = item.courses ? item.courses.join(', ') : (item.image_url ? 'IMAGE_SYNCED' : escapeHTML(item.placeholder_class || 'UIT_KNOWLEDGE_CORE'));
         
+        const isReg = currentTab.includes('registrations');
+        const regBadge = isReg ? `<span class="registration-badge">${currentTab === 'course_registrations' ? 'MENTOR' : 'VIDEO'}</span>` : '';
+
         return `
             <div class="admin-item-card" data-id="${item.id}">
                 <div class="item-info">
-                    <h3>${escapeHTML(title)}</h3>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                        ${regBadge}
+                        <h3 style="margin: 0;">${escapeHTML(title)}</h3>
+                    </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <p>ID/INFO: ${escapeHTML(subtext)}</p>
-                        <span style="width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted);"></span>
-                        <p>${escapeHTML(meta)}</p>
+                        <p>INFO: ${escapeHTML(subtext)}</p>
+                        <span style="width: 4px; height: 4px; border-radius: 50%; background: var(--border);"></span>
+                        <p title="${escapeHTML(meta)}">${escapeHTML(meta)}</p>
                     </div>
                 </div>
                 <div class="item-actions">
                     <button class="btn btn-secondary btn-small" onclick="openEditModal('${item.id}')">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        ${currentTab === 'course_registrations' ? 'Chi tiết' : 'Sửa'}
+                        ${isReg ? 'Chi tiết' : 'Sửa'}
                     </button>
                     <button class="btn btn-secondary btn-small" onclick="deleteItem('${item.id}')" style="color: #ff4b4b; border-color: rgba(255, 75, 75, 0.2);">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
@@ -186,13 +192,14 @@ async function openEditModal(id) {
     if (error) return alert(error.message);
 
     currentItem = data;
-    modalTitle.textContent = currentTab === 'course_registrations' ? 'Chi tiết đăng ký' : `Chỉnh sửa ${currentTab.slice(0, -1)}`;
-    modalSubtitle.textContent = currentTab === 'course_registrations' ? 'VIEW_USER_SUBMISSION' : 'PATCH_DATABASE_RECORDS';
+    const isReg = currentTab.includes('registrations');
+    modalTitle.textContent = isReg ? 'Chi tiết đăng ký' : `Chỉnh sửa ${currentTab.slice(0, -1)}`;
+    modalSubtitle.textContent = isReg ? 'VIEW_USER_SUBMISSION' : 'PATCH_DATABASE_RECORDS';
     renderFields(data);
     
     // Hide save button for registrations
     const saveBtn = document.getElementById('save-btn');
-    if (currentTab === 'course_registrations') {
+    if (isReg) {
         saveBtn.style.display = 'none';
     } else {
         saveBtn.style.display = 'block';
@@ -329,45 +336,76 @@ function renderFields(data = {}) {
         `;
     } else if (currentTab === 'course_registrations') {
         fields = `
-            <div class="form-group">
-                <label>Họ và tên</label>
-                <input type="text" value="${data.full_name || ''}" readonly>
+            <div class="modal-grid-2col">
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" value="${data.full_name || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>MSSV / Email</label>
+                    <input type="text" value="${data.student_id_email || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Có mail Teams?</label>
+                    <input type="text" value="${data.has_teams_email || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email Teams</label>
+                    <input type="text" value="${data.teams_email || ''}" readonly>
+                </div>
+                <div class="form-group modal-grid-full">
+                    <label>Khóa học đăng ký</label>
+                    <input type="text" value="${data.courses ? data.courses.join(', ') : ''}" readonly style="color: var(--primary); font-weight: 600;">
+                </div>
+                <div class="form-group">
+                    <label>Mục tiêu</label>
+                    <input type="text" value="${data.goal || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Rảnh cuối tuần?</label>
+                    <input type="text" value="${data.weekend_available || ''}" readonly>
+                </div>
+                <div class="form-group modal-grid-full">
+                    <label>Khó khăn</label>
+                    <textarea rows="2" readonly>${data.difficulties || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Thời gian rảnh</label>
+                    <input type="text" value="${data.time_slots ? data.time_slots.join(', ') : ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Thời gian gửi</label>
+                    <input type="text" value="${new Date(data.created_at).toLocaleString('vi-VN')}" readonly>
+                </div>
             </div>
-            <div class="form-group">
-                <label>MSSV / Email</label>
-                <input type="text" value="${data.student_id_email || ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Có mail Teams?</label>
-                <input type="text" value="${data.has_teams_email || ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Email Teams</label>
-                <input type="text" value="${data.teams_email || ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Khóa học đăng ký</label>
-                <input type="text" value="${data.courses ? data.courses.join(', ') : ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Mục tiêu</label>
-                <input type="text" value="${data.goal || ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Khó khăn</label>
-                <textarea rows="3" readonly>${data.difficulties || ''}</textarea>
-            </div>
-            <div class="form-group">
-                <label>Rảnh cuối tuần?</label>
-                <input type="text" value="${data.weekend_available || ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Thời gian rảnh</label>
-                <input type="text" value="${data.time_slots ? data.time_slots.join(', ') : ''}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Thời gian gửi</label>
-                <input type="text" value="${new Date(data.created_at).toLocaleString('vi-VN')}" readonly>
+        `;
+    } else if (currentTab === 'video_registrations') {
+        fields = `
+            <div class="modal-grid-2col">
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" value="${data.full_name || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>MSSV</label>
+                    <input type="text" value="${data.student_id || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Có mail Teams?</label>
+                    <input type="text" value="${data.has_teams_email || ''}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email Teams</label>
+                    <input type="text" value="${data.teams_email || ''}" readonly>
+                </div>
+                <div class="form-group modal-grid-full">
+                    <label>Video đăng ký</label>
+                    <input type="text" value="${data.courses ? data.courses.join(', ') : ''}" readonly style="color: var(--primary); font-weight: 600;">
+                </div>
+                <div class="form-group">
+                    <label>Thời gian gửi</label>
+                    <input type="text" value="${new Date(data.created_at).toLocaleString('vi-VN')}" readonly>
+                </div>
             </div>
         `;
     }

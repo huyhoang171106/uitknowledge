@@ -258,16 +258,34 @@ const registrationModal = document.getElementById('registration-modal');
 const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
 const registrationForm = document.getElementById('registration-form');
 
-function openPaymentModal(itemTitle, qrUrl, modalHeader = 'Thanh toán') {
+function openPaymentModal(itemTitle, qrUrl, modalHeader = 'Thanh toán', price = null) {
     if (!qrUrl) {
         alert('Thông tin thanh toán sẽ sớm được cập nhật.');
         return;
     }
 
+    const priceDisplay = document.getElementById('payment-price-display');
+    const fbBtn = document.getElementById('facebook-contact-btn');
+    const confirmBtn = document.getElementById('confirm-payment-btn');
+
     if (paymentModalTitle) paymentModalTitle.textContent = modalHeader;
     paymentCourseTitle.textContent = itemTitle;
     paymentQrImage.src = qrUrl;
     paymentQrImage.classList.remove('loaded');
+
+    if (priceDisplay) {
+        if (price) {
+            priceDisplay.textContent = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+            priceDisplay.style.display = 'block';
+        } else {
+            priceDisplay.style.display = 'none';
+        }
+    }
+
+    if (fbBtn) {
+        // Show FB button if it's a course registration payment
+        fbBtn.style.display = (modalHeader.includes('đăng ký') || modalHeader.includes('Thanh toán')) ? 'flex' : 'none';
+    }
 
     paymentQrImage.onload = () => {
         paymentQrImage.classList.add('loaded');
@@ -275,6 +293,7 @@ function openPaymentModal(itemTitle, qrUrl, modalHeader = 'Thanh toán') {
 
     paymentModal.classList.add('active');
     paymentModal.setAttribute('aria-hidden', 'false');
+    paymentModal.style.display = 'flex'; // Ensure it's visible
     document.body.style.overflow = 'hidden';
 }
 
@@ -289,7 +308,7 @@ function closePaymentModal() {
 closePaymentModalBtn?.addEventListener('click', closePaymentModal);
 paymentModal?.querySelector('.qr-modal-overlay')?.addEventListener('click', closePaymentModal);
 confirmPaymentBtn?.addEventListener('click', () => {
-    alert('Cảm ơn bạn đã thanh toán! Vui lòng gửi ảnh chụp màn hình về cho chúng tôi.');
+    window.open('https://www.facebook.com/GenCanyon', '_blank');
     closePaymentModal();
 });
 
@@ -338,16 +357,23 @@ registrationForm?.addEventListener('submit', async (e) => {
     const submitBtn = document.getElementById('submit-registration-btn');
     if (!submitBtn) return;
 
+    const formData = new FormData(e.target);
+    const selectedCourses = formData.getAll('courses');
+    
+    if (selectedCourses.length === 0) {
+        alert('Vui lòng chọn ít nhất một môn học.');
+        return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Đang gửi...';
 
-    const formData = new FormData(e.target);
     const data = {
         full_name: formData.get('full_name'),
         student_id_email: formData.get('student_id_email'),
         has_teams_email: formData.get('has_teams_email'),
         teams_email: formData.get('teams_email'),
-        courses: formData.getAll('courses'),
+        courses: selectedCourses,
         goal: formData.get('goal'),
         difficulties: formData.get('difficulties'),
         weekend_available: formData.get('weekend_available'),
@@ -357,8 +383,27 @@ registrationForm?.addEventListener('submit', async (e) => {
     try {
         const { error } = await supabaseClient.from('course_registrations').insert([data]);
         if (error) throw error;
-        alert('Đăng ký thành công! Chúng mình sẽ liên hệ với bạn sớm.');
+        
+        // Calculate price
+        const count = selectedCourses.length;
+        let price = 0;
+        if (count === 1) price = 225000;
+        else if (count === 2) price = 385000;
+        else if (count > 2) {
+            price = Math.round((count * 225000 * 0.855) / 1000) * 1000;
+        }
+
+        const courseList = selectedCourses.join(', ');
+        
+        // Close registration modal and open payment modal
         closeRegistrationModal();
+        openPaymentModal(
+            `Đăng ký môn: ${courseList}`, 
+            'assets/images/unnamed.png', 
+            'Thanh toán đăng ký khóa học',
+            price
+        );
+        
     } catch (err) {
         alert('Có lỗi xảy ra: ' + err.message);
     } finally {
@@ -397,23 +442,55 @@ document.getElementById('video-form')?.addEventListener('submit', async (e) => {
     const submitBtn = document.getElementById('submit-video-btn');
     if (!submitBtn) return;
 
+    const formData = new FormData(e.target);
+    const selectedCourses = formData.getAll('courses');
+
+    if (selectedCourses.length === 0) {
+        alert('Vui lòng chọn ít nhất một môn học.');
+        return;
+    }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Đang gửi...';
 
-    const formData = new FormData(e.target);
     const data = {
         full_name: formData.get('full_name'),
         student_id: formData.get('student_id'),
         has_teams_email: formData.get('has_teams_email'),
         teams_email: formData.get('teams_email'),
-        courses: formData.getAll('courses')
+        courses: selectedCourses
     };
 
     try {
         const { error } = await supabaseClient.from('video_registrations').insert([data]);
         if (error) throw error;
-        alert('Đăng ký xem video thành công! Vui lòng chờ chúng mình duyệt nhé.');
+        
+        // Calculate price for videos
+        const count = selectedCourses.length;
+        let price = 0;
+        const prices = {
+            1: 100000,
+            2: 160000,
+            3: 220000,
+            4: 265000,
+            5: 300000,
+            6: 330000
+        };
+        
+        if (count >= 6) price = 330000;
+        else price = prices[count] || (count * 100000);
+
+        const courseList = selectedCourses.join(', ');
+        
+        // Close video modal and open payment modal
         closeVideoModal();
+        openPaymentModal(
+            `Đăng ký xem Video môn: ${courseList}`, 
+            'assets/images/unnamed.png', 
+            'Thanh toán đăng ký Video',
+            price
+        );
+        
     } catch (err) {
         alert('Có lỗi xảy ra: ' + err.message);
     } finally {
@@ -527,7 +604,7 @@ function renderCourses() {
     container.innerHTML = `
         <article class="course-card reveal">
             <div class="course-image glass-effect">
-                <div class="course-badge">Online</div>
+                <div class="course-badge badge-online">Online</div>
                 <div class="course-icon">🎓</div>
             </div>
             <div class="course-content">
@@ -536,10 +613,16 @@ function renderCourses() {
                     <span>Học cùng Mentor</span>
                 </div>
                 <h3 class="course-title">Khóa học theo môn</h3>
-                <p class="course-desc">Học trực tiếp cùng mentor bám sát đề cương UIT. Giải bài tập, ôn thi và hỗ trợ 24/7 suốt kỳ học.</p>
+                <ul class="course-features">
+                    <li>Học trực tiếp cùng mentor bám sát đề cương UIT.</li>
+                    <li>Giải bài tập, ôn thi & hỗ trợ 24/7 suốt kỳ học.</li>
+                </ul>
                 <div class="course-footer">
                     <span class="course-price">Đăng ký lớp mới</span>
-                    <a href="#" class="course-link btn btn-primary btn-small">Đăng ký ngay</a>
+                    <a href="#" class="course-link btn btn-primary btn-small">
+                        <span>Đăng ký ngay</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </article>
@@ -555,10 +638,16 @@ function renderCourses() {
                     <span>Kho video giải đề</span>
                 </div>
                 <h3 class="course-title">Đăng ký xem Video</h3>
-                <p class="course-desc">Truy cập kho video ôn tập trọng tâm, giải chi tiết đề thi các năm giúp bạn nắm chắc kiến thức.</p>
+                <ul class="course-features">
+                    <li>Kho video ôn tập trọng tâm bám sát UIT.</li>
+                    <li>Giải chi tiết đề thi các năm giúp nắm chắc kiến thức.</li>
+                </ul>
                 <div class="course-footer">
-                    <span class="course-price">Miễn phí / Trả phí</span>
-                    <a href="#" class="video-link btn btn-secondary btn-small">Xem ngay</a>
+                    <span class="course-price">Trả phí</span>
+                    <a href="#" class="video-link btn btn-primary btn-small">
+                        <span>Đăng ký ngay</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </article>
