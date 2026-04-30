@@ -836,7 +836,7 @@ select {
     border: 1px solid rgba(62, 207, 142, 0.18);
     color: var(--accent-strong);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 18px;
@@ -1001,7 +1001,7 @@ select {
 .video-title,
 .course-title,
 .merch-name {
-    font-size: 24px;
+    font-size: 27px;
     line-height: 1.14;
     letter-spacing: -0.04em;
 }
@@ -1043,18 +1043,18 @@ select {
 
 .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 420px));
-    gap: 32px;
-    max-width: 1120px;
+    grid-template-columns: repeat(auto-fit, minmax(410px, 500px));
+    gap: 40px;
+    max-width: 1200px;
     margin: 0 auto;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .course-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: 480px;
+    min-height: 580px;
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: var(--radius-xl);
@@ -1138,15 +1138,15 @@ select {
     position: absolute;
     top: 18px;
     left: 18px;
-    height: 28px;
-    padding: 0 14px;
+    height: 32px;
+    padding: 0 16px;
     display: inline-flex;
     align-items: center;
     border-radius: var(--radius-pill);
     background: #111;
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1182,7 +1182,7 @@ select {
     display: flex;
     flex: none;
     flex-direction: column;
-    padding: 24px;
+    padding: 32px;
     position: relative;
     z-index: 2;
     background: rgba(255, 255, 255, 0.75);
@@ -1194,18 +1194,18 @@ select {
 .course-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .course-meta span {
-    padding: 4px 10px;
+    padding: 6px 12px;
     background: rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: var(--radius-xs);
     color: var(--light-text-secondary);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -1222,7 +1222,7 @@ select {
 .course-features {
     margin-top: 16px;
     color: var(--light-text-secondary);
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.6;
 }
 
@@ -1231,7 +1231,7 @@ select {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
 }
 
 .course-features li {
@@ -1262,7 +1262,7 @@ select {
 }
 
 .course-price {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
     color: var(--light-text-muted);
     letter-spacing: -0.01em;
@@ -1283,12 +1283,14 @@ select {
 .course-link,
 .video-link {
     gap: 10px;
+    font-size: 18px !important;
     font-weight: 700 !important;
     letter-spacing: -0.01em;
     overflow: hidden;
     position: relative;
     border-radius: var(--radius-pill) !important;
-    padding: 0 22px !important;
+    padding: 0 28px !important;
+    min-height: 50px !important;
 }
 
 .course-link,
@@ -2924,7 +2926,7 @@ select {
 }
 
 .course-icon {
-    font-size: 72px;
+    font-size: 86px;
     filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
     z-index: 1;
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
